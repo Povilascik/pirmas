@@ -5,4 +5,5 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(pirmas
     pirma_uzd.cpp
-        libr.h)
+        libr.h
+        saugojimas_masyve.cpp)
