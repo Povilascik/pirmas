@@ -19,11 +19,11 @@ using std::ifstream;
 struct duomenys {           // apsirasoma struktura duomenims saugoti.
     string vardas, pavarde;
     int nd[100];
-    int nd_sk;
+    int nd_sk{};
     int egz;
-};
+}A[100];
 
-void inputStudentData(vector<duomenys> &studentai) {
+void inputStudentData(duomenys studentai[]) {
     while (true) {
         duomenys student;
         cout << "Įveskite mokinio vardą (įveskite 'p' norint užbaigti): ";
@@ -43,6 +43,14 @@ void inputStudentData(vector<duomenys> &studentai) {
         }
         cout << "Įveskite egazmino pažymį: ";
         cin >> student.egz;
-        studentai.push_back(student);
     }
+}
+
+double galutinis_vid(int j, int egz) {              // skaiciuoja galutini bala pagal vidurki
+    double vid = 0;
+    for (int i = 0; i < A[j].nd_sk; i++) {
+        vid += A[j].nd[i];
+    }
+    vid /= A[j].nd_sk;
+    return 0.4 * vid + 0.6 * egz;
 }
