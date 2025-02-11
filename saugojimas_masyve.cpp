@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using std::cout;
 using std::cin;
@@ -16,16 +17,18 @@ using std::vector;
 using std::fstream;
 using std::ifstream;
 
-struct duomenys {           // apsirasoma struktura duomenims saugoti.
+struct duomenys_m {           // apsirasoma struktura duomenims saugoti.
     string vardas, pavarde;
     int nd[100];
     int nd_sk{};
     int egz;
 }A[100];
 
-void inputStudentData(duomenys studentai[]) {
+int zmn_sk{};
+
+void inputStudentData() {
     while (true) {
-        duomenys student;
+        duomenys_m student;
         cout << "Įveskite mokinio vardą (įveskite 'p' norint užbaigti): ";
         cin >> student.vardas;
         if (student.vardas == "p") break;
@@ -43,14 +46,38 @@ void inputStudentData(duomenys studentai[]) {
         }
         cout << "Įveskite egazmino pažymį: ";
         cin >> student.egz;
+        zmn_sk++;
     }
 }
 
-double galutinis_vid(int j, int egz) {              // skaiciuoja galutini bala pagal vidurki
+double galutinis_vid(int j) {              // skaiciuoja galutini bala pagal vidurki
     double vid = 0;
     for (int i = 0; i < A[j].nd_sk; i++) {
         vid += A[j].nd[i];
     }
     vid /= A[j].nd_sk;
-    return 0.4 * vid + 0.6 * egz;
+    return 0.4 * vid + 0.6 * A[j].egz;
+}
+
+double galutinis_med(int j) {         // skaiciuoja galutini bala pagal mediana
+std::sort(A[j].nd, A[j].nd + A[j].nd_sk);
+    double med;
+    if (A[j].nd_sk == 0) {
+        med = 0;
+    }else if (A[j].nd_sk % 2 == 0) {
+        med = (A[j].nd[A[j].nd_sk / 2 - 1] + A[j].nd[A[j].nd_sk / 2]) / 2.0;
+    } else {
+        med = A[j].nd[A[j].nd_sk / 2];
+    }
+    return 0.4 * med + 0.6 * A[j].egz;
+}
+
+void write(const string &filename) {           //isvedimo funkcija
+    fstream out(filename);
+    cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
+    cout << "------------------------------------------------------------" << endl;
+    for (int i = 0; i < zmn_sk; i++) {
+        cout <<setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << setw(20) << left << fixed << setprecision(2) << galutinis_vid(i) << setw(20) << left << fixed << setprecision(2) << galutinis_med(i) <<endl;
+    }
+    out.close();
 }
