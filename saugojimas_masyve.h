@@ -1,8 +1,24 @@
-#include "saugojimas_masyve.h"
+#ifndef SAUGOJIMAS_MASYVE_H
+#define SAUGOJIMAS_MASYVE_H
+
+#include <string>
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <algorithm>
 
 using namespace std;
 
-/*void ivedimas() {
+int zmn_sk = 0;
+
+struct duomenys_m {
+    std::string vardas, pavarde;
+    int nd[100];
+    int nd_sk;
+    int egz;
+}B[100];
+
+void ivedimas() {
     while (true) {
         duomenys_m student;
         cout << "Įveskite mokinio vardą (įveskite 'p' norint užbaigti): ";
@@ -57,9 +73,6 @@ void write1(const string &filename) {
     }
     out.close();
 }
-*/
-int main () {
-    ivedimas();
-    write1("C:/Users/PC/Documents/GitHub/pirmas/rez.txt");
-    return 0;
-}
+
+
+#endif //SAUGOJIMAS_MASYVE_H

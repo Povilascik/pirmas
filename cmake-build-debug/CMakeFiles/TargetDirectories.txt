@@ -1,3 +1,4 @@
+C:/Users/PC/Documents/GitHub/pirmas/cmake-build-debug/CMakeFiles/saugojimas_masyve.dir
 C:/Users/PC/Documents/GitHub/pirmas/cmake-build-debug/CMakeFiles/pirmas.dir
 C:/Users/PC/Documents/GitHub/pirmas/cmake-build-debug/CMakeFiles/edit_cache.dir
 C:/Users/PC/Documents/GitHub/pirmas/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -41,6 +41,39 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = C$:/Users/PC/Documents/GitHub/pirmas/cmake-build-debug/
 # =============================================================================
+# Object build statements for EXECUTABLE target saugojimas_masyve
+
+
+#############################################
+# Order-only phony target for saugojimas_masyve
+
+build cmake_object_order_depends_target_saugojimas_masyve: phony || .
+
+build CMakeFiles/saugojimas_masyve.dir/saugojimas_masyve.cpp.obj: CXX_COMPILER__saugojimas_masyve_unscanned_Debug C$:/Users/PC/Documents/GitHub/pirmas/saugojimas_masyve.cpp || cmake_object_order_depends_target_saugojimas_masyve
+  DEP_FILE = CMakeFiles\saugojimas_masyve.dir\saugojimas_masyve.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\saugojimas_masyve.dir
+  OBJECT_FILE_DIR = CMakeFiles\saugojimas_masyve.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target saugojimas_masyve
+
+
+#############################################
+# Link the executable saugojimas_masyve.exe
+
+build saugojimas_masyve.exe: CXX_EXECUTABLE_LINKER__saugojimas_masyve_Debug CMakeFiles/saugojimas_masyve.dir/saugojimas_masyve.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\saugojimas_masyve.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = saugojimas_masyve.exe
+  TARGET_IMPLIB = libsaugojimas_masyve.dll.a
+  TARGET_PDB = saugojimas_masyve.exe.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target pirmas
 
 
@@ -55,12 +88,6 @@ build CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj: CXX_COMPILER__pirmas_unscanned_De
   OBJECT_DIR = CMakeFiles\pirmas.dir
   OBJECT_FILE_DIR = CMakeFiles\pirmas.dir
 
-build CMakeFiles/pirmas.dir/saugojimas_masyve.cpp.obj: CXX_COMPILER__pirmas_unscanned_Debug C$:/Users/PC/Documents/GitHub/pirmas/saugojimas_masyve.cpp || cmake_object_order_depends_target_pirmas
-  DEP_FILE = CMakeFiles\pirmas.dir\saugojimas_masyve.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\pirmas.dir
-  OBJECT_FILE_DIR = CMakeFiles\pirmas.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target pirmas
@@ -69,7 +96,7 @@ build CMakeFiles/pirmas.dir/saugojimas_masyve.cpp.obj: CXX_COMPILER__pirmas_unsc
 #############################################
 # Link the executable pirmas.exe
 
-build pirmas.exe: CXX_EXECUTABLE_LINKER__pirmas_Debug CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj CMakeFiles/pirmas.dir/saugojimas_masyve.cpp.obj
+build pirmas.exe: CXX_EXECUTABLE_LINKER__pirmas_Debug CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\pirmas.dir
@@ -107,6 +134,8 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build pirmas: phony pirmas.exe
 
+build saugojimas_masyve: phony saugojimas_masyve.exe
+
 # =============================================================================
 # Folder targets.
 
@@ -115,7 +144,7 @@ build pirmas: phony pirmas.exe
 #############################################
 # Folder: C:/Users/PC/Documents/GitHub/pirmas/cmake-build-debug
 
-build all: phony pirmas.exe
+build all: phony saugojimas_masyve.exe pirmas.exe
 
 # =============================================================================
 # Built-in targets
