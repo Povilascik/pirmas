@@ -9,6 +9,8 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include <cstdlib>
+#include <ctime>
 
 using std::cout;
 using std::endl;
@@ -20,6 +22,11 @@ using std::string;
 using std::vector;
 using std::fstream;
 using std::ifstream;
+using std::time;
+using std::srand;
+using std::rand;
+
+std::ofstream out ("C:/Users/PC/Documents/GitHub/pirmas/duomenys.txt");
 
 struct duomenys {           // apsirasoma struktura duomenims saugoti.
     string vardas, pavarde;
@@ -79,11 +86,40 @@ double galutinis_med(vector<int> nd, int egz) {         // skaiciuoja galutini b
 
 void write(const string &filename, vector<duomenys> &studentai) {           //isvedimo funkcija
     fstream out(filename);
-    cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
-    cout << "------------------------------------------------------------" << endl;
+    out << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
+    out << "------------------------------------------------------------" << endl;
     for (int i = 0; i < studentai.size(); i++) {
-        cout <<setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << galutinis_vid(studentai[i].nd,studentai[i].egz) << setw(20) << left << fixed << setprecision(2) << galutinis_med(studentai[i].nd,studentai[i].egz) <<endl;
+        out <<setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << galutinis_vid(studentai[i].nd,studentai[i].egz) << setw(20) << left << fixed << setprecision(2) << galutinis_med(studentai[i].nd,studentai[i].egz) <<endl;
     }
     out.close();
 }
+
+void generuoti_paz() {
+        int paz_sk = rand() % 10+ 1;
+    while (paz_sk<2) paz_sk = rand() % 10+ 1;
+    for(int i=0; i<paz_sk; i++) {
+        int paz = rand() % 10 + 1;
+        out << paz << " ";
+    }
+}
+
+void generuoti_vard() {
+    int vard_sk = rand() % 100 + 1;
+    for(int i=0; i<vard_sk; i++) {
+        char vard[5];
+            vard[0] = rand() % 26 + 65;
+            vard[1]='.';
+            vard[2]=' ';
+            vard[3] = rand() % 26 + 65;
+            vard[4]='.';
+            for(int j=0; j<=4; j++) {
+                out << vard[j];
+            }
+        out << " ";
+        generuoti_paz();
+        out << endl;
+        }
+    }
+
+
 #endif //LIBR_H
