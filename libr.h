@@ -13,6 +13,7 @@
 #include <ctime>
 
 using std::cout;
+using std::cin;
 using std::endl;
 using std::setw;
 using std::left;
@@ -22,11 +23,12 @@ using std::string;
 using std::vector;
 using std::fstream;
 using std::ifstream;
+using std::ofstream;
 using std::time;
 using std::srand;
 using std::rand;
 
-std::ofstream out ("C:/Users/PC/Documents/GitHub/pirmas/duomenys.txt");
+ofstream out ("C:/Users/PC/Documents/GitHub/pirmas/duomenys.txt"); // globaliai apsirasiau random skaiciam kurti faila
 
 struct duomenys {           // apsirasoma struktura duomenims saugoti.
     string vardas, pavarde;
@@ -56,11 +58,6 @@ void read(const string &filename, vector<duomenys> &studentai){
     }
     in.close();
 }
-//if(iss.fail()) {          //bandziau padaryti, kad ne skaicius butu praleistas, bet neveike :(((
-//    iss.clear();
-//    iss.ignore(std::numeric_limits<std::streamsize>::max(), ' ');
-//}
-//else and !iss.eof()
 
 double galutinis_vid(vector<int> nd, int egz) {         // skaiciuoja galutini bala pagal vidurki
     double vid = 0;
@@ -86,37 +83,54 @@ double galutinis_med(vector<int> nd, int egz) {         // skaiciuoja galutini b
 
 void write(const string &filename, vector<duomenys> &studentai) {           //isvedimo funkcija
     fstream out(filename);
-    out << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
-    out << "------------------------------------------------------------" << endl;
+    cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
+    cout << "------------------------------------------------------------" << endl;
     for (int i = 0; i < studentai.size(); i++) {
-        out <<setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << galutinis_vid(studentai[i].nd,studentai[i].egz) << setw(20) << left << fixed << setprecision(2) << galutinis_med(studentai[i].nd,studentai[i].egz) <<endl;
+        cout <<setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << galutinis_vid(studentai[i].nd,studentai[i].egz) << setw(20) << left << fixed << setprecision(2) << galutinis_med(studentai[i].nd,studentai[i].egz) <<endl;
     }
     out.close();
 }
 
 void generuoti_paz() {
-        int paz_sk = rand() % 10+ 1;
-    while (paz_sk<2) paz_sk = rand() % 10+ 1;
+
+        int paz_sk = rand() % 10+ 1;            // sugeneruoja atsitiktini pazymiu skaiciu
+    while (paz_sk<2) paz_sk = rand() % 10+ 1;   // tikrina ar pazymiu skaicius yra didesnis nei 2, nes buna negerai, jei <2
     for(int i=0; i<paz_sk; i++) {
-        int paz = rand() % 10 + 1;
+        int paz = rand() % 10 + 1;              // generuoja atsisitkinius skaicius nuo 1 iki 10
         out << paz << " ";
     }
 }
+void generuoti_paz(vector<duomenys> &studentai) {
+    duomenys student;
+    cout << "Iveskite studento varda: ";
+    cin>>student.vardas;
+    cout << "Iveskite studento pavarde: ";
+    cin>>student.pavarde;
+    int paz_sk = rand() % 10+ 1;            // sugeneruoja atsitiktini pazymiu skaiciu
+    while (paz_sk<2) paz_sk = rand() % 10+ 1;   // tikrina ar pazymiu skaicius yra didesnis nei 2, nes buna negerai, jei <2
+    for(int i=0; i<paz_sk; i++) {
+        int paz = rand() % 10 + 1;              // generuoja atsisitkinius skaicius nuo 1 iki 10
+        student.nd.push_back(paz);
+    }
+    student.egz = student.nd.back();            //egzamino pazymi gauna is paskutinio n.d. pazymio
+    student.nd.pop_back();
+    studentai.push_back(student);
+}
 
 void generuoti_vard() {
-    int vard_sk = rand() % 100 + 1;
+    int vard_sk = rand() % 100 + 1;         // sugeneruoja atsitiktini skaiciu, kuris rodo kiek bus zmoniu
     for(int i=0; i<vard_sk; i++) {
-        char vard[5];
-            vard[0] = rand() % 26 + 65;
-            vard[1]='.';
-            vard[2]=' ';
-            vard[3] = rand() % 26 + 65;
-            vard[4]='.';
+        char vardas[5];                       // sukuria masyva, kuriame bus saugomi vardai ir pavardes
+            vardas[0] = rand() % 26 + 65;     // generuoja atsitiktini iniciala vardui
+            vardas[1]='.';
+            vardas[2]=' ';                    // varda ir pavarde atskiria tarpu, kad galetu sstream ji nuskaityti kaip atskirus zodzius
+            vardas[3] = rand() % 26 + 65;     // generuoja atsitiktini iniciala pavardei
+            vardas[4]='.';
             for(int j=0; j<=4; j++) {
-                out << vard[j];
+                out << vardas[j];             // isveda varda ir pavarde i duomenu fiala, kuri paskui nuskaito
             }
         out << " ";
-        generuoti_paz();
+        generuoti_paz();                    // generuoja pazymius
         out << endl;
         }
     }
