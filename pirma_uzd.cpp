@@ -31,7 +31,7 @@ int main()
         break;
         case 5:
             read("C:/Users/PC/Documents/GitHub/pirmas/studentai1000000.txt", studentai);
-        write("C:/Users/PC/Documents/GitHub/pirmas/kursiokai.txt", studentai);
+        ss_write("C:/Users/PC/Documents/GitHub/pirmas/kursiokai.txt", studentai);
         break;
         default:
             cout << "Neteisingas pasirinkimas." << endl;
