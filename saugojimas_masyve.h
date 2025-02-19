@@ -21,13 +21,13 @@ struct duomenys_m {
 void ivedimas() {
     while (true) {
         duomenys_m student;
-        cout << "Įveskite mokinio vardą (įveskite 'p' norint užbaigti): ";
+        cout << "iveskite mokinio varda (iveskite 'p' norint uzbaigti): ";
         cin >> student.vardas;
         if (student.vardas == "p") break;
-        cout << "Įveskite mokinio pavardę: ";
+        cout << "iveskite mokinio pavarde: ";
         cin >> student.pavarde;
         student.nd_sk = 0;
-        cout << "Įveskite pažymius už namų darbus (įveskite -1 norint užbaigti): ";
+        cout << "iveskite pazymius uz namu darbus (iveskite -1 norint uzbaigti): ";
         while (true) {
             int grade;
             cin >> grade;
@@ -36,7 +36,7 @@ void ivedimas() {
                 student.nd[student.nd_sk++] = grade;
             }
         }
-        cout << "Įveskite egazmino pažymį: ";
+        cout << "iveskite egazmino pazymi: ";
         cin >> student.egz;
         B[zmn_sk++] = student;
     }

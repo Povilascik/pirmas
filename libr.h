@@ -28,8 +28,6 @@ using std::time;
 using std::srand;
 using std::rand;
 
-ofstream out ("C:/Users/PC/Documents/GitHub/pirmas/duomenys.txt"); // globaliai apsirasiau random skaiciam kurti faila
-
 struct duomenys {           // apsirasoma struktura duomenims saugoti.
     string vardas, pavarde;
     vector <int> nd;
@@ -91,49 +89,48 @@ void write(const string &filename, vector<duomenys> &studentai) {           //is
     out.close();
 }
 
-void generuoti_paz() {
-
+void generuoti_paz(duomenys &student) {
         int paz_sk = rand() % 10+ 1;            // sugeneruoja atsitiktini pazymiu skaiciu
-    while (paz_sk<2) paz_sk = rand() % 10+ 1;   // tikrina ar pazymiu skaicius yra didesnis nei 2, nes buna negerai, jei <2
-    for(int i=0; i<paz_sk; i++) {
-        int paz = rand() % 10 + 1;              // generuoja atsisitkinius skaicius nuo 1 iki 10
-        out << paz << " ";
-    }
-}
-void generuoti_paz(vector<duomenys> &studentai) {
-    duomenys student;
-    cout << "Iveskite studento varda: ";
-    cin>>student.vardas;
-    cout << "Iveskite studento pavarde: ";
-    cin>>student.pavarde;
-    int paz_sk = rand() % 10+ 1;            // sugeneruoja atsitiktini pazymiu skaiciu
     while (paz_sk<2) paz_sk = rand() % 10+ 1;   // tikrina ar pazymiu skaicius yra didesnis nei 2, nes buna negerai, jei <2
     for(int i=0; i<paz_sk; i++) {
         int paz = rand() % 10 + 1;              // generuoja atsisitkinius skaicius nuo 1 iki 10
         student.nd.push_back(paz);
     }
     student.egz = student.nd.back();            //egzamino pazymi gauna is paskutinio n.d. pazymio
-    student.nd.pop_back();
-    studentai.push_back(student);
+    student.nd.pop_back();            //istrina egzamino pazymi is n.d. pazymiu vektoriaus
 }
 
-void generuoti_vard() {
-    int vard_sk = rand() % 100 + 1;         // sugeneruoja atsitiktini skaiciu, kuris rodo kiek bus zmoniu
-    for(int i=0; i<vard_sk; i++) {
-        char vardas[5];                       // sukuria masyva, kuriame bus saugomi vardai ir pavardes
-            vardas[0] = rand() % 26 + 65;     // generuoja atsitiktini iniciala vardui
-            vardas[1]='.';
-            vardas[2]=' ';                    // varda ir pavarde atskiria tarpu, kad galetu sstream ji nuskaityti kaip atskirus zodzius
-            vardas[3] = rand() % 26 + 65;     // generuoja atsitiktini iniciala pavardei
-            vardas[4]='.';
-            for(int j=0; j<=4; j++) {
-                out << vardas[j];             // isveda varda ir pavarde i duomenu fiala, kuri paskui nuskaito
-            }
-        out << " ";
-        generuoti_paz();                    // generuoja pazymius
-        out << endl;
+void generuoti_paz_ranka(vector<duomenys> &studentai) {
+    duomenys student;
+    while(true){            // ciklas veikia tol, kol neivedamas 'p'
+        cout << "Iveskite studento varda (iveskite 'p' norint uzbaigti): ";
+        cin>>student.vardas;
+        if (student.vardas == "p") break;
+        cout << "Iveskite studento pavarde: ";
+        cin>>student.pavarde;
+        int paz_sk = rand() % 10+ 1;            // sugeneruoja atsitiktini pazymiu skaiciu
+        while (paz_sk<2) paz_sk = rand() % 10+ 1;   // tikrina ar pazymiu skaicius yra didesnis nei 2, nes buna negerai, jei <2
+        for(int i=0; i<paz_sk; i++) {
+            int paz = rand() % 10 + 1;              // generuoja atsisitkinius skaicius nuo 1 iki 10
+            student.nd.push_back(paz);
+        }
+        student.egz = student.nd.back();            //egzamino pazymi gauna is paskutinio n.d. pazymio
+        student.nd.pop_back();                      //istrina egzamino pazymi is n.d. pazymiu vektoriaus
+        studentai.push_back(student);               // ideda studento duomenis i bendra vektoriu
+    }
+}
+
+void generuoti_vard(vector<duomenys> &studentai) {
+    duomenys student;
+        int vard_sk = rand() % 100 + 1;         // sugeneruoja atsitiktini skaiciu, kuris rodo kiek bus zmoniu
+        for(int i=0; i<vard_sk; i++) {
+            student.vardas = rand() % 26 + 65;     // generuoja atsitiktini iniciala vardui
+            student.vardas.push_back('. ');
+            student.pavarde = rand() % 26 + 65;     // generuoja atsitiktini iniciala pavardei
+            student.pavarde.push_back('.');
+            generuoti_paz(student);                    // generuoja pazymius
+            studentai.push_back(student);                // ideda studento duomenis i bendra vektoriu
         }
     }
-
 
 #endif //LIBR_H
