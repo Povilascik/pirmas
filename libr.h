@@ -58,7 +58,7 @@ void read(const string &filename, vector<duomenys> &studentai){
     }
 }
 
-double galutinis_vid(vector<int> nd, int egz, vector<duomenys> &studentai) {         // skaiciuoja galutini bala pagal vidurki
+void galutinis_vid(vector<int> nd, int egz, vector<duomenys> &studentai) {         // skaiciuoja galutini bala pagal vidurki
     duomenys student;
     double vid = 0;
     for (int i = 0; i < nd.size(); i++) {
@@ -68,6 +68,7 @@ double galutinis_vid(vector<int> nd, int egz, vector<duomenys> &studentai) {    
      student.vid = 0.4 * vid + 0.6 * egz;
     studentai.push_back(student);
 }
+
 double galutinis_vid(vector<int> nd, int egz) {         // skaiciuoja galutini bala pagal vidurki
     double vid = 0;
     for (int i = 0; i < nd.size(); i++) {
@@ -77,7 +78,7 @@ double galutinis_vid(vector<int> nd, int egz) {         // skaiciuoja galutini b
      return 0.4 * vid + 0.6 * egz;
 }
 
-double galutinis_med(vector<int> nd, int egz, vector<duomenys> &studentai) {         // skaiciuoja galutini bala pagal mediana
+void galutinis_med(vector<int> nd, int egz, vector<duomenys> &studentai) {         // skaiciuoja galutini bala pagal mediana
     duomenys student;
     std::sort(nd.begin(), nd.end());
     double med;
@@ -91,6 +92,7 @@ double galutinis_med(vector<int> nd, int egz, vector<duomenys> &studentai) {    
     student.med = 0.4 * med + 0.6 * egz;
     studentai.push_back(student);
 }
+
 double galutinis_med(vector<int> nd, int egz) {         // skaiciuoja galutini bala pagal mediana
     std::sort(nd.begin(), nd.end());
     double med;
@@ -105,16 +107,17 @@ double galutinis_med(vector<int> nd, int egz) {         // skaiciuoja galutini b
 }
 
 void ss_write(const string &filename, vector<duomenys> &studentai) {
+    ofstream out(filename);
     std::stringstream ss;
-    string naujas="\n";
-    ss << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
+    ss << setw(20) << left<< "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
     ss << "------------------------------------------------------------" << endl;
     for (int i = 0; i < studentai.size(); i++) {
-        galutinis_vid(studentai[i].nd,studentai[i].egz, studentai);
-        galutinis_med(studentai[i].nd,studentai[i].egz, studentai);
-        ss>>setw(20) >> left >> studentai[i].vardas >> setw(20) >> left >> studentai[i].pavarde >> setw(20) >> left >> fixed >> setprecision(2) >> studentai[i].vid >> setw(20) >> left >> fixed >> setprecision(2) >> studentai[i].med >> naujas;
+        studentai[i].vid = galutinis_vid(studentai[i].nd, studentai[i].egz);
+        studentai[i].med = galutinis_med(studentai[i].nd, studentai[i].egz);
+        ss<<setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << studentai[i].vid << setw(20) << left << fixed << setprecision(2) << studentai[i].med << endl;
     }
-    cout << ss.str();
+    out << ss.str();
+    out.close();
 }
 
 void write(const string &filename, vector<duomenys> &studentai) {           //isvedimo funkcija
