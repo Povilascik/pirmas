@@ -24,16 +24,20 @@ int main()
         break;
         case 3:
         generuoti_vard(studentai);
-        //read("C:/Users/PC/Documents/GitHub/pirmas/duomenys.txt", studentai);
         write("C:/Users/PC/Documents/GitHub/pirmas/rez.txt", studentai);
         break;
         case 4:
             cout << "Darbas baigtas." << endl;
         break;
+        case 5:
+            read("C:/Users/PC/Documents/GitHub/pirmas/studentai1000000.txt", studentai);
+        write("C:/Users/PC/Documents/GitHub/pirmas/kursiokai.txt", studentai);
+        break;
         default:
             cout << "Neteisingas pasirinkimas." << endl;
         break;
     }
+
 
     // Truncate the file at the end of the program
     std::ofstream out("C:/Users/PC/Documents/GitHub/pirmas/duomenys1.txt", std::ios::trunc);
