@@ -12,6 +12,8 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "saugojimas_masyve.h"
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -34,30 +36,6 @@ struct duomenys {           // apsirasoma struktura duomenims saugoti.
     int egz;
     double vid, med;
 };
-
-void read(const string &filename, vector<duomenys> &studentai){
-    ifstream in(filename);          // atidarymas is failo
-    if (!in) {          //tikrina ar faila galima atidaryti
-        std::cerr << "Nepavyko atidaryti failo: " << filename << endl;          //cerr - klaidos isvedimas
-        return;
-    }
-
-    string line;
-    getline(in, line);
-    while (getline(in, line)) {         //ciklas veikia tol, kol nuskaito visa faila
-        std::stringstream iss(line);          //iss - string stream, skirtas nuskaityti duomenims is failo
-        duomenys student;
-        iss >> student.vardas >> student.pavarde;
-        int paz;
-        while (iss >> paz) {
-            if (paz>=0 and paz<=10) student.nd.push_back(paz);          //tikrina ar pazymys yra tarp 0 ir 10, o jeigu ne - praleidzia.
-        }
-        student.egz = student.nd.back();            //egzamino pazymi gauna is paskutinio n.d. pazymio
-        student.nd.pop_back();                      //istrina egzamino pazymi is n.d. pazymiu vektoriaus
-        studentai.push_back(student);               //ideda studento duomenis i bendra vektoriu
-    }
-}
-
 void galutinis_vid(vector<int> nd, int egz, vector<duomenys> &studentai) {         // skaiciuoja galutini bala pagal vidurki
     duomenys student;
     double vid = 0;
@@ -106,14 +84,43 @@ double galutinis_med(vector<int> nd, int egz) {         // skaiciuoja galutini b
     return 0.4 * med + 0.6 * egz;
 }
 
+void read(const string &filename, vector<duomenys> &studentai){
+    ifstream in(filename);          // atidarymas is failo
+    if (!in) {          //tikrina ar faila galima atidaryti
+        std::cerr << "Nepavyko atidaryti failo: " << filename << endl;          //cerr - klaidos isvedimas
+        return;
+    }
+
+    string line;
+    getline(in, line);
+    while (getline(in, line)) {         //ciklas veikia tol, kol nuskaito visa faila
+        std::stringstream iss(line);          //iss - string stream, skirtas nuskaityti duomenims is failo
+        duomenys student;
+        iss >> student.vardas >> student.pavarde;
+        int paz;
+        while (iss >> paz) {
+            if (paz>=0 and paz<=10) student.nd.push_back(paz);          //tikrina ar pazymys yra tarp 0 ir 10, o jeigu ne - praleidzia.
+        }
+
+        student.egz = student.nd.back();            //egzamino pazymi gauna is paskutinio n.d. pazymio
+        student.nd.pop_back();                      //istrina egzamino pazymi is n.d. pazymiu vektoriaus
+        studentai.push_back(student);               //ideda studento duomenis i bendra vektoriu
+    }
+    in.close();         //uzdaromas failas
+    for(int i=0;i<studentai.size();i++) {
+        studentai[i].vid=galutinis_vid(studentai[i].nd, studentai[i].egz);
+        studentai[i].med=galutinis_med(studentai[i].nd, studentai[i].egz);
+    }
+}
+
+
 void ss_write(const string &filename, vector<duomenys> &studentai) {
     ofstream out(filename);
+    duomenys student;
     std::stringstream ss;
     ss << setw(20) << left<< "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
     ss << "------------------------------------------------------------" << endl;
     for (int i = 0; i < studentai.size(); i++) {
-        studentai[i].vid = galutinis_vid(studentai[i].nd, studentai[i].egz);
-        studentai[i].med = galutinis_med(studentai[i].nd, studentai[i].egz);
         ss<<setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << studentai[i].vid << setw(20) << left << fixed << setprecision(2) << studentai[i].med << endl;
     }
     out << ss.str();
@@ -174,4 +181,35 @@ void generuoti_vard(vector<duomenys> &studentai) {
         }
     }
 
+void sort(vector<duomenys> &studentai) {
+    cout << "Pasirinkite pagal ka norite rusiuoti studentus: \n"
+    << "1. Pagal varda \n"
+    << "2. Pagal pavarde \n"
+    << "3. Pagal galutini bala (vidurkis) \n"
+    << "4. Pagal galutini bala (mediana) \n";
+    int pasirinkimas;
+    cin>>pasirinkimas;
+    switch (pasirinkimas) {
+        case 1:
+            sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+                return a.vardas > b.vardas;
+            });
+        break;
+        case 2:
+            sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+                return a.pavarde < b.pavarde;
+            });
+        break;
+        case 3:
+            sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+                return a.vid > b.vid;
+            });
+        break;
+        case 4:
+            sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+                return a.med > b.med;
+            });
+        break;
+    }
+}
 #endif //LIBR_H

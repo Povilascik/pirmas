@@ -44,8 +44,11 @@ int main()
             case 3:
                 read("C:/Users/PC/Documents/GitHub/pirmas/studentai1000000.txt", studentai);
             break;
+            default:
+            cout << "Neteisingas pasirinkimas." << endl;
+        break;
         }
-
+        sort(studentai);
         ss_write("C:/Users/PC/Documents/GitHub/pirmas/kursiokai.txt", studentai);
         break;
         case 5:
@@ -55,8 +58,6 @@ int main()
             cout << "Neteisingas pasirinkimas." << endl;
         break;
     }
-
-
     // Truncate the file at the end of the program
     std::ofstream out("C:/Users/PC/Documents/GitHub/pirmas/duomenys1.txt", std::ios::trunc);
     out.close();
