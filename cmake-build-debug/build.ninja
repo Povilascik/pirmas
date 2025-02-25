@@ -88,6 +88,12 @@ build CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj: CXX_COMPILER__pirmas_unscanned_De
   OBJECT_DIR = CMakeFiles\pirmas.dir
   OBJECT_FILE_DIR = CMakeFiles\pirmas.dir
 
+build CMakeFiles/pirmas.dir/duomenys.cpp.obj: CXX_COMPILER__pirmas_unscanned_Debug C$:/Users/PC/Documents/GitHub/pirmas/duomenys.cpp || cmake_object_order_depends_target_pirmas
+  DEP_FILE = CMakeFiles\pirmas.dir\duomenys.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\pirmas.dir
+  OBJECT_FILE_DIR = CMakeFiles\pirmas.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target pirmas
@@ -96,7 +102,7 @@ build CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj: CXX_COMPILER__pirmas_unscanned_De
 #############################################
 # Link the executable pirmas.exe
 
-build pirmas.exe: CXX_EXECUTABLE_LINKER__pirmas_Debug CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj
+build pirmas.exe: CXX_EXECUTABLE_LINKER__pirmas_Debug CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj CMakeFiles/pirmas.dir/duomenys.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\pirmas.dir

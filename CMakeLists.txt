@@ -8,4 +8,6 @@ add_executable(saugojimas_masyve
     saugojimas_masyve.h)
 add_executable(pirmas
     pirma_uzd.cpp
-        libr.h)
+        libr.h
+        duomenys.h
+        duomenys.cpp)
