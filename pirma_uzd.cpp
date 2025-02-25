@@ -1,4 +1,4 @@
-#include "libr.h"
+#include "duomenys.h"
 #include  "saugojimas_masyve.h"
 
 vector <duomenys> studentai;

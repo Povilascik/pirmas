@@ -32,8 +32,10 @@ struct duomenys {           // apsirasoma struktura duomenims saugoti.
     double vid, med;
 };
 
-double galutinis_vid(const vector<int>& nd, int egz);
+double galutinis_vid(vector<int> nd, int egz);
+void galutinis_vid(vector<int> nd, int egz, vector<duomenys> &studentai);
 double galutinis_med(vector<int> nd, int egz);
+void galutinis_med(vector<int> nd, int egz, vector<duomenys> &studentai);
 void read(const string &filename, vector<duomenys> &studentai);
 void ss_write(const string &filename, const vector<duomenys> &studentai);
 void write(const string &filename, const vector<duomenys> &studentai);
