@@ -2,12 +2,8 @@
 #define DUOMENYS_H
 
 #include <iostream>
-#include <iomanip>
-#include <fstream>
 #include <vector>
-#include <string>
-#include <cstdlib>
-#include <ctime>
+#include <iomanip>
 
 using std::cout;
 using std::cin;
@@ -37,8 +33,8 @@ void galutinis_vid(vector<int> nd, int egz, vector<duomenys> &studentai);
 double galutinis_med(vector<int> nd, int egz);
 void galutinis_med(vector<int> nd, int egz, vector<duomenys> &studentai);
 void read(const string &filename, vector<duomenys> &studentai);
-void ss_write(const string &filename, const vector<duomenys> &studentai);
-void write(const string &filename, const vector<duomenys> &studentai);
+void ss_write(const string &filename, vector<duomenys> &studentai);
+void write(const string &filename, vector<duomenys> &studentai);
 void generuoti_paz(duomenys &student);
 void generuoti_paz_ranka(vector<duomenys> &studentai);
 void generuoti_vard(vector<duomenys> &studentai);

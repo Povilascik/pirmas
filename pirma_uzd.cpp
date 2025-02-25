@@ -5,7 +5,7 @@ vector <duomenys> studentai;
 
 int main()
 {
-    srand(time(0));
+    srand(time(nullptr));
     int a;
     cout << "norint ivesti duomenis ranka, iveskite 1. \n"
      << "norint sugeneruoti pazymius, iveskite 2. \n"

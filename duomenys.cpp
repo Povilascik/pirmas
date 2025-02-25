@@ -1,6 +1,10 @@
 #include "duomenys.h"
 #include <sstream>
 #include <algorithm>
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <cstdlib>
 
 void galutinis_vid(vector<int> nd, int egz, vector<duomenys> &studentai) {         // skaiciuoja galutini bala pagal vidurki
     duomenys student;
