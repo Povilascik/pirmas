@@ -13,7 +13,7 @@ int main()
      << "norint nuskaityti vardus is failo, iveskite 4. \n"
      << "norint baigti darba, iveskite 5.";
     cin >> a;
-
+    string path;
     switch (a) {
         case 1:
             ivedimas();
@@ -32,7 +32,8 @@ int main()
         cout << "pasirinkite kuri faila norite nuskaityti: \n"
         << "1. studentai10000.txt \n"
         << "2. studentai100000.txt \n"
-        << "3. studentai1000000.txt \n";
+        << "3. studentai1000000.txt \n"
+        << "4. atskiras failas(jusu sukurtas) \n";
         cin>>pasirinkimas;
         switch (pasirinkimas) {
             case 1:
@@ -43,6 +44,12 @@ int main()
             break;
             case 3:
                 read("C:/Users/PC/Documents/GitHub/pirmas/studentai1000000.txt", studentai);
+            break;
+            case 4:
+                path;
+                cout<< "iveskite failo path:";
+            cin>> path;
+                read(path, studentai);
             break;
             default:
             cout << "Neteisingas pasirinkimas." << endl;

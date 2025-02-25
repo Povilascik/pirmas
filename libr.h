@@ -86,11 +86,6 @@ double galutinis_med(vector<int> nd, int egz) {         // skaiciuoja galutini b
 
 void read(const string &filename, vector<duomenys> &studentai){
     ifstream in(filename);          // atidarymas is failo
-    if (!in) {          //tikrina ar faila galima atidaryti
-        std::cerr << "Nepavyko atidaryti failo: " << filename << endl;          //cerr - klaidos isvedimas
-        return;
-    }
-
     string line;
     getline(in, line);
     while (getline(in, line)) {         //ciklas veikia tol, kol nuskaito visa faila
@@ -191,14 +186,8 @@ void sort(vector<duomenys> &studentai) {
     cin>>pasirinkimas;
     switch (pasirinkimas) {
         case 1:
-            sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
-                return a.vardas > b.vardas;
-            });
         break;
         case 2:
-            sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
-                return a.pavarde < b.pavarde;
-            });
         break;
         case 3:
             sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
