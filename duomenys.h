@@ -21,23 +21,34 @@ using std::time;
 using std::srand;
 using std::rand;
 
-struct duomenys {           // apsirasoma struktura duomenims saugoti.
+struct duomenys {
+    // apsirasoma struktura duomenims saugoti.
     string vardas, pavarde;
-    vector <int> nd;
+    vector<int> nd;
     int egz;
     double vid, med;
 };
 
 double galutinis_vid(vector<int> nd, int egz);
+
 void galutinis_vid(vector<int> nd, int egz, vector<duomenys> &studentai);
+
 double galutinis_med(vector<int> nd, int egz);
+
 void galutinis_med(vector<int> nd, int egz, vector<duomenys> &studentai);
+
 void read(const string &filename, vector<duomenys> &studentai);
+
 void ss_write(const string &filename, vector<duomenys> &studentai);
+
 void write(const string &filename, vector<duomenys> &studentai);
+
 void generuoti_paz(duomenys &student);
+
 void generuoti_paz_ranka(vector<duomenys> &studentai);
+
 void generuoti_vard(vector<duomenys> &studentai);
-void sort(vector<duomenys> &studentai);
+
+void sortas(vector<duomenys> &studentai);
 
 #endif //DUOMENYS_H

@@ -1,12 +1,15 @@
 # ninja log v6
-19	1495	7622241507064487	CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj	ab6aca745a4ebfd0
-1136	1336	7621792874498936	pirmas.exe	e70f0a5edb12ebe6
+18	1587	7622252015343516	CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj	ab6aca745a4ebfd0
+1905	2102	7622252034216090	pirmas.exe	d2e78138911bf815
 69	799	7612262803390812	CMakeFiles/saugojimas_masyve.dir/saugojimas_masyve.cpp.obj	542626ebbb10384a
-4	366	7622245381780711	build.ninja	6653e2593b89e290
+2	368	7622253730231799	build.ninja	6653e2593b89e290
 50	842	7610462548898061	CMakeFiles/pirmas.dir/saugojimas_masyve.cpp.obj	73e9e7459d36d088
 800	1241	7612262810702213	saugojimas_masyve.exe	d2235e7b9bd80088
-44	1232	7622243019532402	CMakeFiles/pirmas.dir/duomenys.cpp.obj	2619d6bbbe9da165
-3	407	7622245381780711	build.ninja	6653e2593b89e290
-39	1083	7622245383486796	CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj	ab6aca745a4ebfd0
-49	1392	7622245383586440	CMakeFiles/pirmas.dir/duomenys.cpp.obj	2619d6bbbe9da165
-1392	1581	7622245397008383	pirmas.exe	d2e78138911bf815
+23	1905	7622252015397723	CMakeFiles/pirmas.dir/duomenys.cpp.obj	2619d6bbbe9da165
+19	1158	7622255403380757	CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj	ab6aca745a4ebfd0
+27	1475	7622255403457254	CMakeFiles/pirmas.dir/duomenys.cpp.obj	2619d6bbbe9da165
+1475	1695	7622255417945031	pirmas.exe	d2e78138911bf815
+20	935	7622257525408854	CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj	ab6aca745a4ebfd0
+936	1142	7622257534574509	pirmas.exe	d2e78138911bf815
+20	909	7622259267097092	CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj	ab6aca745a4ebfd0
+910	1151	7622259275985629	pirmas.exe	d2e78138911bf815
