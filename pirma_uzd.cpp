@@ -67,9 +67,6 @@ int main() {
     } catch (const std::exception &e) {
         cout << "Klaida: " << e.what() << endl;
     }
-    // Truncate the file at the end of the program
-    std::ofstream out("C:/Users/PC/Documents/GitHub/pirmas/duomenys1.txt", std::ios::trunc);
-    out.close();
 
     return 0;
 }
