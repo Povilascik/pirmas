@@ -19,26 +19,37 @@ struct duomenys_m {
 }B[100];
 
 void ivedimas() {
-    while (true) {
-        duomenys_m student;
-        cout << "iveskite mokinio varda (iveskite 'p' norint uzbaigti): ";
-        cin >> student.vardas;
-        if (student.vardas == "p") break;
-        cout << "iveskite mokinio pavarde: ";
-        cin >> student.pavarde;
-        student.nd_sk = 0;
-        cout << "iveskite pazymius uz namu darbus (iveskite -1 norint uzbaigti): ";
+    try {
         while (true) {
-            int grade;
-            cin >> grade;
-            if (grade == -1) break;
-            if (grade >= 0 && grade <= 10) {
-                student.nd[student.nd_sk++] = grade;
+            duomenys_m student;
+            cout << "iveskite mokinio varda (iveskite 'p' norint uzbaigti): ";
+            cin >> student.vardas;
+            if (student.vardas == "p") break;
+            cout << "iveskite mokinio pavarde: ";
+            cin >> student.pavarde;
+            student.nd_sk = 0;
+            cout << "iveskite pazymius uz namu darbus (iveskite -1 norint uzbaigti): ";
+            while (true) {
+                int grade;
+                cin >> grade;
+                if (cin.fail()) {
+                    throw runtime_error("Netinkamas pazymys");
+                }
+                if (grade == -1) break;
+                if (grade >= 0 && grade <= 10) {
+                    student.nd[student.nd_sk++] = grade;
+                }
             }
+            cout << "iveskite egazmino pazymi: ";
+            cin >> student.egz;
+            if (cin.fail()) {
+                throw runtime_error("Netinkamas egazmino pazymys");
+            }
+            B[zmn_sk++] = student;
         }
-        cout << "iveskite egazmino pazymi: ";
-        cin >> student.egz;
-        B[zmn_sk++] = student;
+    } catch (const exception &e) {
+        cerr << "Klaida: " << e.what() << endl;
+        cin.clear();
     }
 }
 
