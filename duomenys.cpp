@@ -10,21 +10,30 @@ void galutinis_vid(vector<int> nd, int egz, vector<duomenys> &studentai) {
     // skaiciuoja galutini bala pagal vidurki
     duomenys student;
     double vid = 0;
+    try {
     for (int i = 0; i < nd.size(); i++) {
         vid += nd[i];
     }
     vid /= nd.size();
+
     student.vid = 0.4 * vid + 0.6 * egz;
     studentai.push_back(student);
+    } catch (const std::exception &e) {
+        std::cerr << "Error calculating average: " << e.what() << std::endl;
+    }
 }
 
 double galutinis_vid(vector<int> nd, int egz) {
     // skaiciuoja galutini bala pagal vidurki
     double vid = 0;
+    try {
     for (int i = 0; i < nd.size(); i++) {
         vid += nd[i];
     }
     vid /= nd.size();
+    } catch (const std::exception &e) {
+        std::cerr << "Error calculating average: " << e.what() << std::endl;
+    }
     return 0.4 * vid + 0.6 * egz;
 }
 
