@@ -6,6 +6,7 @@ vector<duomenys> studentai;
 int main() {
     srand(time(nullptr));
     int a;
+    try {
     cout << "norint ivesti duomenis ranka, iveskite 1. \n"
             << "norint sugeneruoti pazymius, iveskite 2. \n"
             << "norint sugeneruotus pazymius ir vardus, iveskite 3. \n"
@@ -62,6 +63,9 @@ int main() {
         default:
             cout << "Neteisingas pasirinkimas." << endl;
             break;
+    }
+    } catch (const std::exception &e) {
+        cout << "Klaida: " << e.what() << endl;
     }
     // Truncate the file at the end of the program
     std::ofstream out("C:/Users/PC/Documents/GitHub/pirmas/duomenys1.txt", std::ios::trunc);

@@ -130,21 +130,29 @@ void generuoti_paz_ranka(vector<duomenys> &studentai) {
     duomenys student;
     while (true) {
         // ciklas veikia tol, kol neivedamas 'p'
-        cout << "Iveskite studento varda (iveskite 'p' norint uzbaigti): ";
-        cin >> student.vardas;
-        if (student.vardas == "p") break;
-        cout << "Iveskite studento pavarde: ";
-        cin >> student.pavarde;
-        int paz_sk = rand() % 10 + 1; // sugeneruoja atsitiktini pazymiu skaiciu
-        while (paz_sk < 2) paz_sk = rand() % 10 + 1;
-        // tikrina ar pazymiu skaicius yra didesnis nei 2, nes buna negerai, jei <2
-        for (int i = 0; i < paz_sk; i++) {
-            int paz = rand() % 10 + 1; // generuoja atsisitkinius skaicius nuo 1 iki 10
-            student.nd.push_back(paz);
+        try{
+            cout << "Iveskite studento varda (iveskite 'p' norint uzbaigti): ";
+            cin >> student.vardas;
+            if (student.vardas == "p") break;
+            cout << "Iveskite studento pavarde: ";
+            cin >> student.pavarde;
+            if (cin.fail()) {
+                throw std::invalid_argument("Neteisingas ivestis.");
+            }
+            int paz_sk = rand() % 10 + 1; // sugeneruoja atsitiktini pazymiu skaiciu
+            while (paz_sk < 2) paz_sk = rand() % 10 + 1;
+            // tikrina ar pazymiu skaicius yra didesnis nei 2, nes buna negerai, jei <2
+            for (int i = 0; i < paz_sk; i++) {
+                int paz = rand() % 10 + 1; // generuoja atsisitkinius skaicius nuo 1 iki 10
+                student.nd.push_back(paz);
+            }
+            student.egz = student.nd.back(); //egzamino pazymi gauna is paskutinio n.d. pazymio
+            student.nd.pop_back(); //istrina egzamino pazymi is n.d. pazymiu vektoriaus
+            studentai.push_back(student); // ideda studento duomenis i bendra vektoriu
+        } catch (const std::exception &e) {
+            cout << "Klaida: " << e.what() << endl;
+            cin.clear();
         }
-        student.egz = student.nd.back(); //egzamino pazymi gauna is paskutinio n.d. pazymio
-        student.nd.pop_back(); //istrina egzamino pazymi is n.d. pazymiu vektoriaus
-        studentai.push_back(student); // ideda studento duomenis i bendra vektoriu
     }
 }
 
