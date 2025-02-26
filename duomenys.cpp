@@ -123,8 +123,21 @@ void write(const string &filename, vector<duomenys> &studentai) {
     out.close();
 }
 
-void generuoti_paz(duomenys &student) {
-    int paz_sk = rand() % 10 + 1; // sugeneruoja atsitiktini pazymiu skaiciu
+void write_file(const string &filename, vector<duomenys> &studentai) {
+    //isvedimo funkcija
+    fstream out(filename);
+    cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left <<
+            "Galutinis (Vid.) / Galutinis (Med.)" << endl;
+    cout << "------------------------------------------------------------" << endl;
+    for (int i = 0; i < studentai.size(); i++) {
+        cout << setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(20) << left
+                << fixed << setprecision(2) << galutinis_vid(studentai[i].nd, studentai[i].egz) << setw(20) << left <<
+                fixed << setprecision(2) << galutinis_med(studentai[i].nd, studentai[i].egz) << endl;
+    }
+    out.close();
+}
+
+void generuoti_paz(duomenys &student, int paz_sk) {
     while (paz_sk < 2) paz_sk = rand() % 10 + 1;
     // tikrina ar pazymiu skaicius yra didesnis nei 2, nes buna negerai, jei <2
     for (int i = 0; i < paz_sk; i++) {
@@ -149,14 +162,7 @@ void generuoti_paz_ranka(vector<duomenys> &studentai) {
                 throw std::invalid_argument("Neteisingas ivestis.");
             }
             int paz_sk = rand() % 10 + 1; // sugeneruoja atsitiktini pazymiu skaiciu
-            while (paz_sk < 2) paz_sk = rand() % 10 + 1;
-            // tikrina ar pazymiu skaicius yra didesnis nei 2, nes buna negerai, jei <2
-            for (int i = 0; i < paz_sk; i++) {
-                int paz = rand() % 10 + 1; // generuoja atsisitkinius skaicius nuo 1 iki 10
-                student.nd.push_back(paz);
-            }
-            student.egz = student.nd.back(); //egzamino pazymi gauna is paskutinio n.d. pazymio
-            student.nd.pop_back(); //istrina egzamino pazymi is n.d. pazymiu vektoriaus
+            generuoti_paz(student, paz_sk); // generuoja pazymius
             studentai.push_back(student); // ideda studento duomenis i bendra vektoriu
         } catch (const std::exception &e) {
             cout << "Klaida: " << e.what() << endl;
@@ -164,16 +170,28 @@ void generuoti_paz_ranka(vector<duomenys> &studentai) {
         }
     }
 }
+///
+            // while (paz_sk < 2) paz_sk = rand() % 10 + 1;
+            // // tikrina ar pazymiu skaicius yra didesnis nei 2, nes buna negerai, jei <2
+            // for (int i = 0; i < paz_sk; i++) {
+            //     int paz = rand() % 10 + 1; // generuoja atsisitkinius skaicius nuo 1 iki 10
+            //     student.nd.push_back(paz);
+            // }
+            // student.egz = student.nd.back(); //egzamino pazymi gauna is paskutinio n.d. pazymio
+            // student.nd.pop_back(); //istrina egzamino pazymi is n.d. pazymiu vektoriaus
+            // studentai.push_back(student); // ideda studento duomenis i bendra vektoriu
+///
 
 void generuoti_vard(vector<duomenys> &studentai) {
     duomenys student;
     int vard_sk = rand() % 100 + 1; // sugeneruoja atsitiktini skaiciu, kuris rodo kiek bus zmoniu
+    int paz_sk = rand() % 10 + 1; // sugeneruoja atsitiktini pazymiu skaiciu
     for (int i = 0; i < vard_sk; i++) {
         student.vardas = rand() % 26 + 65; // generuoja atsitiktini iniciala vardui
         student.vardas.push_back('.');
         student.pavarde = rand() % 26 + 65; // generuoja atsitiktini iniciala pavardei
         student.pavarde.push_back('.');
-        generuoti_paz(student); // generuoja pazymius
+        generuoti_paz(student,paz_sk); // generuoja pazymius
         studentai.push_back(student); // ideda studento duomenis i bendra vektoriu
     }
 }
