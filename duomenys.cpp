@@ -177,6 +177,9 @@ void sortas(vector<duomenys> &studentai) {
             << "4. Pagal galutini bala (mediana) \n";
     int pasirinkimas;
     cin >> pasirinkimas;
+    if (cin.fail()) {
+        throw std::invalid_argument("Neteisingas ivestis.");
+    }
     switch (pasirinkimas) {
         case 1:
             break;
