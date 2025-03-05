@@ -1,23 +1,98 @@
 #include "duomenys.h"
+#include "saugojimas_masyve.h"
 #include <sstream>
 #include <algorithm>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
-#include <cstdlib>
+
+void meniu(vector<duomenys> &studentai) {
+    try {
+        int a;
+        cout << "norint ivesti duomenis ranka, iveskite 1. \n"
+                << "norint sugeneruoti pazymius, iveskite 2. \n"
+                << "norint sugeneruotus pazymius ir vardus, iveskite 3. \n"
+                << "norint nuskaityti vardus is failo, iveskite 4. \n"
+                << "norint nuskaityti vardus is failo, iveskite 5. \n"
+                << "norint baigti darba, iveskite 6.";
+        cin >> a;
+        if (cin.fail()) {
+            throw std::invalid_argument("Neteisingas ivestis.");
+        }
+        string path;
+        switch (a) {
+            case 1:
+                ivedimas();
+                write1();
+                break;
+            case 2:
+                generuoti_paz_ranka(studentai);
+                write(studentai);
+                break;
+            case 3:
+                generuoti_vard(studentai, 2, 0);
+                write(studentai);
+                break;
+            case 4:
+                int pasirinkimas;
+                cout << "pasirinkite kuri faila norite nuskaityti: \n"
+                        << "1. studentai10000.txt \n"
+                        << "2. studentai100000.txt \n"
+                        << "3. studentai1000000.txt \n";
+                cin >> pasirinkimas;
+                if (cin.fail()) {
+                    throw std::invalid_argument("Neteisingas ivestis.");
+                }
+                try {
+                    switch (pasirinkimas) {
+                        case 1:
+                            read("C:/Users/PC/Documents/GitHub/pirmas/studentai10000.txt", studentai);
+                            break;
+                        case 2:
+                            read("C:/Users/PC/Documents/GitHub/pirmas/studentai100000.txt", studentai);
+                            break;
+                        case 3:
+                            read("C:/Users/PC/Documents/GitHub/pirmas/studentai1000000.txt", studentai);
+                            break;
+                        default:
+                            cout << "Neteisingas pasirinkimas." << endl;
+                            break;
+                    }
+                } catch (const std::exception &e) {
+                }
+                if (studentai.empty()) {
+                    cout << "Nepavyko nuskaityti failo." << endl;
+                } else {
+                    sortas(studentai);
+                    ss_write("C:/Users/PC/Documents/GitHub/pirmas/kursiokai.txt", studentai);
+                }
+                break;
+            case 5:
+                make_file(studentai, "C:/Users/PC/Documents/GitHub/pirmas/tyrimas_studentai1000.txt", 1000, 5);
+            case 6:
+                cout << "Darbas baigtas." << endl;
+                break;
+            default:
+                cout << "Neteisingas pasirinkimas." << endl;
+                break;
+        }
+    } catch (const std::exception &e) {
+        cout << "Klaida: " << e.what() << endl;
+    }
+}
 
 void galutinis_vid(vector<int> nd, int egz, vector<duomenys> &studentai) {
     // skaiciuoja galutini bala pagal vidurki
     duomenys student;
     double vid = 0;
     try {
-    for (int i = 0; i < nd.size(); i++) {
-        vid += nd[i];
-    }
-    vid /= nd.size();
+        for (int i = 0; i < nd.size(); i++) {
+            vid += nd[i];
+        }
+        vid /= nd.size();
 
-    student.vid = 0.4 * vid + 0.6 * egz;
-    studentai.push_back(student);
+        student.vid = 0.4 * vid + 0.6 * egz;
+        studentai.push_back(student);
     } catch (const std::exception &e) {
         std::cerr << "Error calculating average: " << e.what() << std::endl;
     }
@@ -27,10 +102,10 @@ double galutinis_vid(vector<int> nd, int egz) {
     // skaiciuoja galutini bala pagal vidurki
     double vid = 0;
     try {
-    for (int i = 0; i < nd.size(); i++) {
-        vid += nd[i];
-    }
-    vid /= nd.size();
+        for (int i = 0; i < nd.size(); i++) {
+            vid += nd[i];
+        }
+        vid /= nd.size();
     } catch (const std::exception &e) {
         std::cerr << "Error calculating average: " << e.what() << std::endl;
     }
@@ -109,9 +184,8 @@ void ss_write(const string &filename, vector<duomenys> &studentai) {
     out.close();
 }
 
-void write(const string &filename, vector<duomenys> &studentai) {
+void write(vector<duomenys> &studentai) {
     //isvedimo funkcija
-    fstream out(filename);
     cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left <<
             "Galutinis (Vid.) / Galutinis (Med.)" << endl;
     cout << "------------------------------------------------------------" << endl;
@@ -120,21 +194,42 @@ void write(const string &filename, vector<duomenys> &studentai) {
                 << fixed << setprecision(2) << galutinis_vid(studentai[i].nd, studentai[i].egz) << setw(20) << left <<
                 fixed << setprecision(2) << galutinis_med(studentai[i].nd, studentai[i].egz) << endl;
     }
+}
+
+void write_file(const string &filename, std::vector<duomenys> &studentai, int nd_skaicius) {
+    std::ofstream out(filename);
+    if (!out) {
+        throw std::runtime_error("negalima atidaryti failo: " + filename);
+    }
+    std::stringstream ss;
+    ss << std::setw(20) << std::left << "Vardas" << std::setw(20) << std::left << "Pavarde";
+    for (int i = 1; i <= nd_skaicius - 1; i++) {
+        ss << std::setw(20) << std::left << "ND" + std::to_string(i);
+    }
+    ss << setw(20) << std::left << "EGZAMINAS" << endl;
+    ss << std::endl;
+    while (!studentai.empty()) {
+        // int lines_to_write = std::min(1000, static_cast<int>(studentai.size()));
+        for (auto i: studentai) {
+            ss << std::setw(20) << std::left << i.vardas
+                    << std::setw(20) << std::left << i.pavarde;
+            for (auto k: i.nd) {
+                // ss << i.nd.size() << " -size ";
+                ss << std::setw(20) << std::left << k;
+            }
+            ss << setw(20) << std::left << i.egz;
+            ss << std::endl;
+        }
+        out << ss.str();
+        studentai.erase(studentai.begin(), studentai.end());
+    }
+
     out.close();
 }
 
-void write_file(const string &filename, vector<duomenys> &studentai) {
-    //isvedimo funkcija
-    fstream out(filename);
-    cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left <<
-            "Galutinis (Vid.) / Galutinis (Med.)" << endl;
-    cout << "------------------------------------------------------------" << endl;
-    for (int i = 0; i < studentai.size(); i++) {
-        cout << setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(20) << left
-                << fixed << setprecision(2) << galutinis_vid(studentai[i].nd, studentai[i].egz) << setw(20) << left <<
-                fixed << setprecision(2) << galutinis_med(studentai[i].nd, studentai[i].egz) << endl;
-    }
-    out.close();
+void make_file(vector<duomenys> &studentai, const string &filename, int mok_sk, int paz_sk) {
+    generuoti_vard(studentai, paz_sk, mok_sk);
+    write_file(filename, studentai, paz_sk);
 }
 
 void generuoti_paz(duomenys &student, int paz_sk) {
@@ -146,13 +241,14 @@ void generuoti_paz(duomenys &student, int paz_sk) {
     }
     student.egz = student.nd.back(); //egzamino pazymi gauna is paskutinio n.d. pazymio
     student.nd.pop_back(); //istrina egzamino pazymi is n.d. pazymiu vektoriaus
+
 }
 
 void generuoti_paz_ranka(vector<duomenys> &studentai) {
     duomenys student;
     while (true) {
         // ciklas veikia tol, kol neivedamas 'p'
-        try{
+        try {
             cout << "Iveskite studento varda (iveskite 'p' norint uzbaigti): ";
             cin >> student.vardas;
             if (student.vardas == "p") break;
@@ -170,28 +266,21 @@ void generuoti_paz_ranka(vector<duomenys> &studentai) {
         }
     }
 }
-///
-            // while (paz_sk < 2) paz_sk = rand() % 10 + 1;
-            // // tikrina ar pazymiu skaicius yra didesnis nei 2, nes buna negerai, jei <2
-            // for (int i = 0; i < paz_sk; i++) {
-            //     int paz = rand() % 10 + 1; // generuoja atsisitkinius skaicius nuo 1 iki 10
-            //     student.nd.push_back(paz);
-            // }
-            // student.egz = student.nd.back(); //egzamino pazymi gauna is paskutinio n.d. pazymio
-            // student.nd.pop_back(); //istrina egzamino pazymi is n.d. pazymiu vektoriaus
-            // studentai.push_back(student); // ideda studento duomenis i bendra vektoriu
-///
 
-void generuoti_vard(vector<duomenys> &studentai) {
-    duomenys student;
-    int vard_sk = rand() % 100 + 1; // sugeneruoja atsitiktini skaiciu, kuris rodo kiek bus zmoniu
-    int paz_sk = rand() % 10 + 1; // sugeneruoja atsitiktini pazymiu skaiciu
+void generuoti_vard(vector<duomenys> &studentai, int paz_sk1, int mok_sk) {
+    int vard_sk;
+    if (mok_sk != 0) vard_sk = mok_sk;
+    else vard_sk = rand() % 100 + 1; // sugeneruoja atsitiktini skaiciu, kuris rodo kiek bus zmoniu
+    int paz_sk;
+    if (paz_sk1 != 0) paz_sk = paz_sk1;
+    else paz_sk = rand() % 10 + 1; // sugeneruoja atsitiktini pazymiu skaiciu
     for (int i = 0; i < vard_sk; i++) {
+        duomenys student;
         student.vardas = rand() % 26 + 65; // generuoja atsitiktini iniciala vardui
-        student.vardas.push_back('.');
+        student.vardas+=".";
         student.pavarde = rand() % 26 + 65; // generuoja atsitiktini iniciala pavardei
-        student.pavarde.push_back('.');
-        generuoti_paz(student,paz_sk); // generuoja pazymius
+        student.pavarde+=".";
+        generuoti_paz(student, paz_sk); // generuoja pazymius
         studentai.push_back(student); // ideda studento duomenis i bendra vektoriu
     }
 }

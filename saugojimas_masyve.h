@@ -75,14 +75,12 @@ double galutinis_med1(int j) {
     return 0.4 * med + 0.6 * B[j].egz;
 }
 
-void write1(const string &filename) {
-    fstream out(filename);
+void write1() {
     cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.) / Galutinis (Med.)" << endl;
     cout << "------------------------------------------------------------" << endl;
     for (int i = 0; i < zmn_sk; i++) {
         cout << setw(20) << left << B[i].vardas << setw(20) << left << B[i].pavarde << setw(20) << left << fixed << setprecision(2) << galutinis_vid1(i)<< setw(20) << left << " / " << setw(20) << left << fixed << setprecision(2) << galutinis_med1(i) << endl;
     }
-    out.close();
 }
 
 

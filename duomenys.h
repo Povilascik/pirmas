@@ -4,6 +4,9 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
+#include <cstdlib>
+#include <random>
+#include <ctime>
 
 using std::cout;
 using std::cin;
@@ -29,6 +32,8 @@ struct duomenys {
     double vid, med;
 };
 
+void meniu(vector<duomenys > &studentai);
+
 double galutinis_vid(vector<int> nd, int egz);
 
 void galutinis_vid(vector<int> nd, int egz, vector<duomenys> &studentai);
@@ -41,13 +46,17 @@ void read(const string &filename, vector<duomenys> &studentai);
 
 void ss_write(const string &filename, vector<duomenys> &studentai);
 
-void write(const string &filename, vector<duomenys> &studentai);
+void write(vector<duomenys> &studentai);
 
-void generuoti_paz(duomenys &student);
+void write_file(const std::string &filename, std::vector<duomenys> &studentai, int nd_skaicius);
+
+void make_file(vector <duomenys>& studentai,const string& filename, int mok_sk, int paz_sk);
+
+void generuoti_paz(duomenys &student, int paz_sk);
 
 void generuoti_paz_ranka(vector<duomenys> &studentai);
 
-void generuoti_vard(vector<duomenys> &studentai);
+void generuoti_vard(vector<duomenys> &studentai, int paz_sk1, int mok_sk);
 
 void sortas(vector<duomenys> &studentai);
 
