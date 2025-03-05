@@ -5,6 +5,17 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <cwchar>
+
+std::unordered_map<int, string> umap;
+
+struct blogi {
+    // apsirasoma struktura duomenims saugoti.
+    string vardas, pavarde;
+    vector<int> nd;
+    int egz;
+    double vid, med;
+};vector<blogi> blogi;
 
 void meniu(vector<duomenys> &studentai) {
     try {
@@ -68,6 +79,11 @@ void meniu(vector<duomenys> &studentai) {
                 }
                 break;
             case 5:
+                umap[0]="C:/Users/PC/Documents/GitHub/pirmas/tyrimas_studentai1000.txt";
+                umap[1]="C:/Users/PC/Documents/GitHub/pirmas/tyrimas_studentai10000.txt";
+                umap[2]="C:/Users/PC/Documents/GitHub/pirmas/tyrimas_studentai100000.txt";
+                umap[3]="C:/Users/PC/Documents/GitHub/pirmas/tyrimas_studentai1000000.txt";
+                umap[4]="C:/Users/PC/Documents/GitHub/pirmas/tyrimas_studentai10000000.txt";
                 int pasirinkimas1;
                 cout << "1. sugeneruoti failus." << endl
                         << "2. tirti failus" << endl;
@@ -86,9 +102,23 @@ void meniu(vector<duomenys> &studentai) {
                               1000000, 5);
                     make_file(studentai, "C:/Users/PC/Documents/GitHub/pirmas/tyrimas_studentai10000000.txt",
                               10000000, 5);
+
                     break;
                     case 2:
-
+                        cout << "Pasirinkite kuri faila norite nuskaityti: \n"
+                                << "1. studentai1000.txt \n"
+                                << "2. studentai10000.txt \n"
+                                << "3. studentai100000.txt \n"
+                                << "4. studentai1000000.txt \n"
+                                << "5. studentai10000000.txt \n";
+                    cin>>pasirinkimas1;
+                    if (cin.fail()) {
+                        throw std::invalid_argument("Neteisingas ivestis.");
+                    }
+                        read(umap[pasirinkimas1], studentai);
+                    dalina(studentai);
+                    //sortas(studentai);
+                        //ss_write(umap[pasirinkimas1],studentai);
                         break;
                     default: cout << "Neteisingas pasirinkimas." << endl;
                     break;
@@ -343,20 +373,19 @@ void meniu(vector<duomenys> &studentai) {
         }
     }
 
-/*void dalina(vector<duomenys> &studentai) {
-    duomenys student;
-    vector<duomenys> vargsiukai;
-    vector<duomenys> galvociai;
-    for (int i = 0; i < studentai.size(); i++) {
-        if (studentai[i].vid < 5) {
-            vargsiukai.push_back(studentai[i]);
-        } else {
-            galvociai.push_back(studentai[i]);
-        }
+void dalina(vector<duomenys> &studentai) {
+    sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+        return a.vid > b.vid;
+    });
+    // for(auto i: studentai) {
+    //     if(i.vid<5) {
+    //         blogi.push_back({i.vardas, i.pavarde, i.nd, i.egz, i.vid, i.med});
+    //         std::remove(studentai.begin(), studentai.end(), i);
+    //         studentai.pop_back();
+    //     }
+    // }
+    for(auto i: blogi) {
+        cout << i.vardas << " " << i.pavarde << " " << i.vid << endl;
     }
-    cout << "Vargsiukai: " << endl;
-    write(vargsiukai);
-    cout << "Galvociai: " << endl;
-    write(galvociai);
+    };
 
-}*/

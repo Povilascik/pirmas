@@ -7,7 +7,9 @@
 #include <cstdlib>
 #include <random>
 #include <ctime>
+#include <unordered_map>
 
+struct blogi;
 using std::cout;
 using std::cin;
 using std::endl;
@@ -23,6 +25,8 @@ using std::ofstream;
 using std::time;
 using std::srand;
 using std::rand;
+
+
 
 struct duomenys {
     // apsirasoma struktura duomenims saugoti.
