@@ -60,4 +60,6 @@ void generuoti_vard(vector<duomenys> &studentai, int paz_sk1, int mok_sk);
 
 void sortas(vector<duomenys> &studentai);
 
+void dalina(vector<duomenys> &studentai);
+
 #endif //DUOMENYS_H
