@@ -2,11 +2,13 @@
 #include "saugojimas_masyve.h"
 #include <sstream>
 #include <algorithm>
+#include <chrono>
 #include <vector>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
 #include <cwchar>
+#include <chrono>
 
 std::unordered_map<int, string> umap;
 
@@ -89,7 +91,8 @@ void meniu(vector<duomenys> &studentai) {
                     throw std::invalid_argument("Neteisingas ivestis.");
                 }
                 switch (pasirinkimas1) {
-                    case 1:
+                    case 1:{
+                        auto start = std::chrono::high_resolution_clock::now();
                         make_file(studentai, "C:/Users/PC/Documents/GitHub/pirmas/tyrimas_studentai1000.txt", 1000, 5);
                         make_file(studentai, "C:/Users/PC/Documents/GitHub/pirmas/tyrimas_studentai10000.txt", 10000,
                                   5);
@@ -99,9 +102,11 @@ void meniu(vector<duomenys> &studentai) {
                                   1000000, 5);
                         make_file(studentai, "C:/Users/PC/Documents/GitHub/pirmas/tyrimas_studentai10000000.txt",
                                   10000000, 5);
-
-                        break;
-                    case 2:
+                    auto end = std::chrono::high_resolution_clock::now();
+                    std::chrono::duration<double> duration = end - start;
+                    cout << "Time taken to create all files: " << duration.count() << " seconds." << endl;
+                        break; }
+                    case 2:{
                         cout << "Pasirinkite kuri faila norite nuskaityti: \n"
                                 << "1. studentai1000.txt \n"
                                 << "2. studentai10000.txt \n"
@@ -119,8 +124,9 @@ void meniu(vector<duomenys> &studentai) {
                     ss_write(umap[pasirinkimas1]+"_stud_rez.txt",studentai);
                     ss_write(umap[pasirinkimas1]+"_blogi_rez.txt",blogis);
                         break;
+
                     default: cout << "Neteisingas pasirinkimas." << endl;
-                        break;
+                        break; }
                 }
             case 6:
                 cout << "Darbas baigtas." << endl;
