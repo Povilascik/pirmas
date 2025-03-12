@@ -86,9 +86,14 @@ void meniu(vector<duomenys> &studentai) {
                 int pasirinkimas1;
                 cout << "1. sugeneruoti failus." << endl
                         << "2. tirti failus" << endl;
+            try {
                 cin >> pasirinkimas1;
-                if (cin.fail()) {
+            }catch (exception &e) {
+                cout << "Klaida: " << e.what() << endl;
+            }
+                if (pasirinkimas1>5 or pasirinkimas1<1) {
                     throw std::invalid_argument("Neteisingas ivestis.");
+                    break;
                 }
                 switch (pasirinkimas1) {
                     case 1:{
@@ -104,7 +109,7 @@ void meniu(vector<duomenys> &studentai) {
                                   10000000, 5);
                     auto end = std::chrono::high_resolution_clock::now();
                     std::chrono::duration<double> duration = end - start;
-                    cout << "Time taken to create all files: " << duration.count() << " seconds." << endl;
+                    cout << "laikas, kuri uztruko sugeneruoti visus duomenis: " << duration.count() << " seconds." << endl;
                         break; }
                     case 2:{
                         cout << "Pasirinkite kuri faila norite nuskaityti: \n"
@@ -119,7 +124,9 @@ void meniu(vector<duomenys> &studentai) {
                         }
                         read(umap[pasirinkimas1]+".txt", studentai);
                         dalina(studentai);
+                        cout << "Pazangius studentai: \n";
                     sortas(studentai);
+                        cout << "nepazangus studentai: \n";
                     sortas(blogis);
                     ss_write(umap[pasirinkimas1]+"_stud_rez.txt",studentai);
                     ss_write(umap[pasirinkimas1]+"_blogi_rez.txt",blogis);
@@ -136,9 +143,7 @@ void meniu(vector<duomenys> &studentai) {
                 break;
         }
     } catch
-    (const std::exception &
-        e
-    ) {
+    (const std::exception &e) {
         cout << "Klaida: " << e.what() << endl;
     }
 }
@@ -353,32 +358,36 @@ void sortas(vector<duomenys> &studentai) {
             << "2. Pagal pavarde \n"
             << "3. Pagal galutini bala (vidurkis) \n"
             << "4. Pagal galutini bala (mediana) \n";
-    int pasirinkimas;
-    cin >> pasirinkimas;
-    if (cin.fail()) {
-        throw std::invalid_argument("Neteisingas ivestis.");
-    }
-    switch (pasirinkimas) {
-        case 1:
-            sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
-                return a.vardas < b.vardas;
-            });
+    try {
+        int pasirinkimas;
+        cin >> pasirinkimas;
+        if (cin.fail()) {
+            throw std::invalid_argument("Neteisingas ivestis.");
+        }
+        switch (pasirinkimas) {
+            case 1:
+                sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+                    return a.vardas < b.vardas;
+                });
             break;
-        case 2:
-            sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
-                return a.pavarde < b.pavarde;
-            });
+            case 2:
+                sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+                    return a.pavarde < b.pavarde;
+                });
             break;
-        case 3:
-            sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
-                return a.vid > b.vid;
-            });
+            case 3:
+                sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+                    return a.vid > b.vid;
+                });
             break;
-        case 4:
-            sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
-                return a.med > b.med;
-            });
+            case 4:
+                sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+                    return a.med > b.med;
+                });
             break;
+        }
+    }catch(const std::exception &e) {
+        cout << "Klaida: " << e.what() << endl;
     }
 }
 
