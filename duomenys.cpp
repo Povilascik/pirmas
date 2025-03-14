@@ -140,15 +140,21 @@ void meniu(vector<duomenys> &studentai) {
                         sorto_laikas+=sortas(blogis);
                         ss_write(umap[pasirinkimas1] + "_stud_rez.txt", studentai);
                         ss_write(umap[pasirinkimas1] + "_blogi_rez.txt", blogis);
-                        cout << "\n Nuskaitymo laikas: " << std::chrono::duration<double>(
-                            nuskaitymas_pabaiga - nuskaitymas_pradzia).count() << "s" << endl;
-                        cout << "\n dalijimo laikas: " << std::chrono::duration<double>(
-                            dalinimo_pabaiga - dalinimo_pradzia).count() << "s" << endl;
-                        cout << "\n rusiavimo laikas: " << sorto_laikas << "s" << endl;
-                        cout << "\n viso laikas: " << std::chrono::duration<double>(
-                            nuskaitymas_pabaiga - nuskaitymas_pradzia).count() +
-                                std::chrono::duration<double>(dalinimo_pabaiga - dalinimo_pradzia).count() +
-                                sorto_laikas << "s" << endl;
+                        // cout << "\n Nuskaitymo laikas: " << std::chrono::duration<double>(
+                        //     nuskaitymas_pabaiga - nuskaitymas_pradzia).count() << "s" << endl;
+                        // cout << "\n dalijimo laikas: " << std::chrono::duration<double>(
+                        //     dalinimo_pabaiga - dalinimo_pradzia).count() << "s" << endl;
+                        // cout << "\n rusiavimo laikas: " << sorto_laikas << "s" << endl;
+                        // cout << "\n viso laikas: " << std::chrono::duration<double>(
+                        //     nuskaitymas_pabaiga - nuskaitymas_pradzia).count() +
+                        //         std::chrono::duration<double>(dalinimo_pabaiga - dalinimo_pradzia).count() +
+                        //         sorto_laikas << "s" << endl;
+
+                        cout << std::chrono::duration<double>(
+                             nuskaitymas_pabaiga - nuskaitymas_pradzia).count();
+                        cout << "\n" << std::chrono::duration<double>(
+                             dalinimo_pabaiga - dalinimo_pradzia).count();
+                        cout << "\n" << sorto_laikas;
                         break;
                     }
                     default:
@@ -157,7 +163,7 @@ void meniu(vector<duomenys> &studentai) {
                 }
             }
             case 6: {
-                cout << "Darbas baigtas." << endl;
+                cout << "\nDarbas baigtas." << endl;
                 break;
             }
             default:
