@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <chrono>
 #include <vector>
+#include <list>
+#include <deque>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -13,7 +15,84 @@ std::unordered_map<int, string> umap;
 
 vector<duomenys> blogis;
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+template <typename Container>
+void read(const std::string &filename, Container &studentai) {
+    std::ifstream in(filename);
+    std::string line;
+    getline(in, line); // Skip header
+    while (getline(in, line)) {
+        std::stringstream iss(line);
+        duomenys student;
+        iss >> student.vardas >> student.pavarde;
+        int paz;
+        while (iss >> paz) {
+            if (paz >= 0 && paz <= 10) student.nd.push_back(paz);
+        }
+        student.egz = student.nd.back();
+        student.nd.pop_back();
+        studentai.push_back(student);
+    }
+    in.close();
+}
 
+template <typename Container>
+double sortas(Container &studentai) {
+    std::cout << "Pasirinkite pagal ka norite rusiuoti studentus: \n"
+              << "1. Pagal varda \n"
+              << "2. Pagal pavarde \n"
+              << "3. Pagal galutini bala (vidurkis) \n"
+              << "4. Pagal galutini bala (mediana) \n";
+    auto start = std::chrono::high_resolution_clock::now();
+    try {
+        int pasirinkimas;
+        std::cin >> pasirinkimas;
+        if (std::cin.fail()) {
+            throw std::invalid_argument("Neteisingas ivestis.");
+        }
+
+        switch (pasirinkimas) {
+            case 1:
+                std::sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+                    return a.vardas < b.vardas;
+                });
+            break;
+            case 2:
+                std::sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+                    return a.pavarde < b.pavarde;
+                });
+            break;
+            case 3:
+                std::sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+                    return a.vid > b.vid;
+                });
+            break;
+            case 4:
+                std::sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+                    return a.med > b.med;
+                });
+            break;
+        }
+
+    } catch (const std::exception &e) {
+        std::cout << "Klaida: " << e.what() << std::endl;
+    }
+    auto end = std::chrono::high_resolution_clock::now();
+    return std::chrono::duration<double>(end - start).count();
+}
+
+template <typename Container>
+void write_to_file(const std::string &filename, const Container &studentai) {
+    std::ofstream out(filename);
+    out << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left <<
+            "Galutinis (Vid.) / Galutinis (Med.)" << endl;
+    out << "------------------------------------------------------------" << endl;
+    for (const auto &student : studentai) {
+        out << setw(20) << left<< student.vardas << " " << setw(20) << left<< student.pavarde << " " << setw(20) << left << fixed << setprecision(2)<< student.vid<<setw(20) << left << fixed << setprecision(2)<< student.vid << "\n";
+    }
+    out.close();
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void meniu(vector<duomenys> &studentai) {
     try {
         int a;
@@ -91,6 +170,48 @@ void meniu(vector<duomenys> &studentai) {
                     cout << "Klaida: " << e.what() << endl;
                 }
 
+                // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                // double sorto_laikas;
+                // std::cout << "Pasirinkite konteinerio tipa: \n"
+                //               << "1. std::vector \n"
+                //               << "2. std::list \n"
+                //               << "3. std::deque \n";
+                //
+                // int pasirinkimas;
+                // std::cin >> pasirinkimas;
+                //
+                // if (std::cin.fail()) {
+                //     throw std::invalid_argument("Neteisinga ivestis.");
+                // }
+                // using ContainerType = vector<duomenys>;
+                // if (pasirinkimas==1) using ContainerType = std::vector<duomenys>;
+                //     else if (pasirinkimas==2) using ContainerType = std::list<duomenys>;
+                //     else if (pasirinkimas==3) using ContainerType = std::deque<duomenys>;
+                //     else std::cout << "Neteisingas pasirinkimas." << std::endl;
+                // ContainerType studentai;
+                // cout << "Pasirinkite kuri faila norite nuskaityti: \n"
+                //                 << "1. studentai1000.txt \n"
+                //                 << "2. studentai10000.txt \n"
+                //                 << "3. studentai100000.txt \n"
+                //                 << "4. studentai1000000.txt \n"
+                //                 << "5. studentai10000000.txt \n";
+                //         cin >> pasirinkimas1;
+                //         if (cin.fail()) {
+                //             throw std::invalid_argument("Neteisingas ivestis.");
+                //         }
+                //         if (pasirinkimas1 > 5 or pasirinkimas1 < 1) {
+                //             throw std::invalid_argument("Neteisingas ivestis.");
+                //         }
+                // read(umap[pasirinkimas1] + ".txt", studentai);
+                // dalina(studentai);
+                // sorto_laikas+=sortas(studentai);
+                // sorto_laikas+=sortas(blogis);
+                //
+                // write_to_file(umap[pasirinkimas1] + "_stud_rez.txt", studentai);
+                // write_to_file(umap[pasirinkimas1] + "_blogi_rez.txt", blogis);
+                //
+                // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                 switch (pasirinkimas1) {
                     case 1: {
                         auto start = std::chrono::high_resolution_clock::now();
@@ -110,8 +231,25 @@ void meniu(vector<duomenys> &studentai) {
                         break;
                     }
                     case 2: {
+                        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         double sorto_laikas;
-                        cout << "Pasirinkite kuri faila norite nuskaityti: \n"
+                        std::cout << "Pasirinkite konteinerio tipa: \n"
+                                      << "1. std::vector \n"
+                                      << "2. std::list \n"
+                                      << "3. std::deque \n";
+                            int pasirinkimas;
+                            std::cin >> pasirinkimas;
+                            if (std::cin.fail() or pasirinkimas < 1 or pasirinkimas > 3) {
+                                throw std::invalid_argument("Neteisinga ivestis.");
+                                break;
+                            }
+                        using ContainerType = vector<duomenys>;
+                        if (pasirinkimas==1) using ContainerType = std::vector<duomenys>;
+                        else if (pasirinkimas==2) using ContainerType = std::list<duomenys>;
+                        else if (pasirinkimas==3) using ContainerType = std::deque<duomenys>;
+                        else std::cout << "Neteisingas pasirinkimas." << std::endl;
+                        ContainerType studentai;
+                cout << "Pasirinkite kuri faila norite nuskaityti: \n"
                                 << "1. studentai1000.txt \n"
                                 << "2. studentai10000.txt \n"
                                 << "3. studentai100000.txt \n"
@@ -124,31 +262,57 @@ void meniu(vector<duomenys> &studentai) {
                         if (pasirinkimas1 > 5 or pasirinkimas1 < 1) {
                             throw std::invalid_argument("Neteisingas ivestis.");
                         }
+                read(umap[pasirinkimas1] + ".txt", studentai);
+                dalina(studentai);
+                sorto_laikas+=sortas(studentai);
+                sorto_laikas+=sortas(blogis);
 
-                        auto nuskaitymas_pradzia = chrono::high_resolution_clock::now();
-                        read(umap[pasirinkimas1] + ".txt", studentai);
-                        auto nuskaitymas_pabaiga = chrono::high_resolution_clock::now();
-                        ////////////////////////////////////////////////////////////////////////////////
-                        auto dalinimo_pradzia = chrono::high_resolution_clock::now();
-                        dalina(studentai);
-                        auto dalinimo_pabaiga = chrono::high_resolution_clock::now();
-                        ////////////////////////////////////////////////////////////////////////////////
-                        cout << "Pazangius studentai: \n";
-                        sorto_laikas+=sortas(studentai);
-                        cout << "nepazangus studentai: \n";
-                        sorto_laikas+=sortas(blogis);
-                        ss_write(umap[pasirinkimas1] + "_stud_rez.txt", studentai);
-                        ss_write(umap[pasirinkimas1] + "_blogi_rez.txt", blogis);
-                        cout << "\n Nuskaitymo laikas: " << std::chrono::duration<double>(
-                            nuskaitymas_pabaiga - nuskaitymas_pradzia).count() << "s" << endl;
-                        cout << "\n dalijimo laikas: " << std::chrono::duration<double>(
-                            dalinimo_pabaiga - dalinimo_pradzia).count() << "s" << endl;
-                        cout << "\n rusiavimo laikas: " << sorto_laikas << "s" << endl;
-                        cout << "\n viso laikas: " << std::chrono::duration<double>(
-                            nuskaitymas_pabaiga - nuskaitymas_pradzia).count() +
-                                std::chrono::duration<double>(dalinimo_pabaiga - dalinimo_pradzia).count() +
-                                sorto_laikas << "s" << endl;
-                        break;
+                write_to_file(umap[pasirinkimas1] + "_stud_rez.txt", studentai);
+                write_to_file(umap[pasirinkimas1] + "_blogi_rez.txt", blogis);
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                        // double sorto_laikas;
+                        // cout << "Pasirinkite kuri faila norite nuskaityti: \n"
+                        //         << "1. studentai1000.txt \n"
+                        //         << "2. studentai10000.txt \n"
+                        //         << "3. studentai100000.txt \n"
+                        //         << "4. studentai1000000.txt \n"
+                        //         << "5. studentai10000000.txt \n";
+                        // cin >> pasirinkimas1;
+                        // if (cin.fail()) {
+                        //     throw std::invalid_argument("Neteisingas ivestis.");
+                        // }
+                        // if (pasirinkimas1 > 5 or pasirinkimas1 < 1) {
+                        //     throw std::invalid_argument("Neteisingas ivestis.");
+                        // }
+                        //
+                        // auto nuskaitymas_pradzia = chrono::high_resolution_clock::now();
+                        // read(umap[pasirinkimas1] + ".txt", studentai);
+                        // auto nuskaitymas_pabaiga = chrono::high_resolution_clock::now();
+                        // ////////////////////////////////////////////////////////////////////////////////
+                        // auto dalinimo_pradzia = chrono::high_resolution_clock::now();
+                        // dalina(studentai);
+                        // auto dalinimo_pabaiga = chrono::high_resolution_clock::now();
+                        // ////////////////////////////////////////////////////////////////////////////////
+                        // cout << "Pazangus studentai: \n";
+                        // sorto_laikas+=sortas(studentai);
+                        // cout << "nepazangus studentai: \n";
+                        // sorto_laikas+=sortas(blogis);
+                        // ////////////////////////////////////////////////////////////////////////////////
+                        // ss_write(umap[pasirinkimas1] + "_stud_rez.txt", studentai);
+                        // ss_write(umap[pasirinkimas1] + "_blogi_rez.txt", blogis);
+                        // cout << "\n Nuskaitymo laikas: " << std::chrono::duration<double>(
+                        //     nuskaitymas_pabaiga - nuskaitymas_pradzia).count() << "s" << endl;
+                        // cout << "\n dalijimo laikas: " << std::chrono::duration<double>(
+                        //     dalinimo_pabaiga - dalinimo_pradzia).count() << "s" << endl;
+                        // ////////////////////////////////////////////////////////////////////////////////
+                        // cout << "\n rusiavimo laikas: " << sorto_laikas << "s" << endl;
+                        // cout << "\n viso laikas: " << std::chrono::duration<double>(
+                        //     nuskaitymas_pabaiga - nuskaitymas_pradzia).count() +
+                        //         std::chrono::duration<double>(dalinimo_pabaiga - dalinimo_pradzia).count() +
+                        //         sorto_laikas << "s" << endl;
+                         break;
                     }
                     default:
                         cout << "Neteisingas pasirinkimas." << endl;
@@ -263,9 +427,8 @@ void ss_write(const string &filename, vector<duomenys> &studentai) {
     ss << "------------------------------------------------------------" << endl;
     for (int i = 0; i < studentai.size(); i++) {
         ss << setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(20) <<
-                left <<
-                fixed << setprecision(2) << studentai[i].vid << setw(20) << left << fixed << setprecision(2) <<
-                studentai[i].med << endl;
+                left <<fixed << setprecision(2) << studentai[i].vid << setw(20) <<
+                    left << fixed << setprecision(2) <<studentai[i].med << endl;
     }
     out << ss.str();
     out.close();
