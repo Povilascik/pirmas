@@ -39,7 +39,7 @@ void read(const std::string &filename, Container &studentai) {
 
 template<typename Container>
 void dalina(Container &studentai, Container &blogis) {
-    std::sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+    std::stable_sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
         return a.vid < b.vid; // Sort from lowest to highest
     });
 
@@ -47,7 +47,7 @@ void dalina(Container &studentai, Container &blogis) {
         return student.vid >= 5;
     });
 
-    blogis.insert(blogis.end(), studentai.begin(), it);
+    blogis.insert(blogis.end(), std::make_move_iterator(studentai.begin()), std::make_move_iterator(it));
     studentai.erase(studentai.begin(), it);
     studentai.shrink_to_fit();
     blogis.shrink_to_fit();
