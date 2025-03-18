@@ -48,6 +48,8 @@ void dalina(Container &studentai, Container &blogis) {
 
     blogis.insert(blogis.end(), studentai.begin(), it);
     studentai.erase(studentai.begin(), it);
+    studentai.shrink_to_fit();
+    blogis.shrink_to_fit();
 }
 
 template<typename Container>
