@@ -18,9 +18,10 @@ vector<duomenys> blogis;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 template<typename Container>
 void read(const std::string &filename, Container &studentai) {
-    std::ifstream in(filename);
-    std::string line;
+    ifstream in(filename);
+    string line;
     getline(in, line); // Skip header
+    studentai.reserve(1000);
     while (getline(in, line)) {
         std::stringstream iss(line);
         duomenys student;
@@ -31,7 +32,7 @@ void read(const std::string &filename, Container &studentai) {
         }
         student.egz = student.nd.back();
         student.nd.pop_back();
-        studentai.push_back(student);
+        studentai.push_back(std::move(student));
     }
     in.close();
 }
