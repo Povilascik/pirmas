@@ -1,14 +1,13 @@
 #include "duomenys.h"
+// #include "duomenys.cpp"
 
 vector<duomenys> studentai;
 
 int main() {
     srand(time(nullptr));
     meniu(studentai);
-
+    cout << "Iveskite bet ka, kad baigti darba.";
+    cin.ignore(256, '\n');
+    cin.get();
     return 0;
 }
-
-// reikia pasidaryti programa, kuri nuskaito duomenis is failo.
-// reikia pasidaryti programa, kuri surusiuoja duomenis is failo.
-// reikia pasidaryti programa, kuri isveda duomenis i faila pagal pasirinkima.
