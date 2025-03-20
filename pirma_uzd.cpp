@@ -11,3 +11,5 @@ int main() {
     cin.get();
     return 0;
 }
+///usr/bin/c++ -std=c++17 -o CMakeFiles/pirma_uzd.dir/pirma_uzd.cpp.o -c /path/to/your/project/pirma_uzd.cpp
+//complie settings , kompiliatoriaus eilute

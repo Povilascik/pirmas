@@ -45,11 +45,12 @@ void readas(const std::string &filename, Container &studentai) {
 }
 
 template<typename Container>
-void dalina(Container &studentai, Container &blogis) {
+double dalina(Container &studentai, Container &blogis) {
+    auto start = std::chrono::high_resolution_clock::now();
     std::stable_sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
-        return a.vid < b.vid; // Sort from lowest to highest
+        return a.vid < b.vid;
     });
-
+    auto end = std::chrono::high_resolution_clock::now();
     auto it = std::find_if(studentai.begin(), studentai.end(), [](const duomenys &student) {
         return student.vid >= 5;
     });
@@ -59,16 +60,17 @@ void dalina(Container &studentai, Container &blogis) {
     studentai.shrink_to_fit();
     blogis.shrink_to_fit();
     cout << "dalina - baigta\n";
+    return chrono::duration<double>(end - start).count();
 }
 
 template<typename Container>
-double sortass(Container &studentai) {
+void sortass(Container &studentai) {
     std::cout << "Pasirinkite pagal ka norite rusiuoti studentus: \n"
             << "1. Pagal varda \n"
             << "2. Pagal pavarde \n"
             << "3. Pagal galutini bala (vidurkis) \n"
             << "4. Pagal galutini bala (mediana) \n";
-    auto start = std::chrono::high_resolution_clock::now();
+    // auto start = std::chrono::high_resolution_clock::now();
     try {
         int pasirinkimas;
         std::cin >> pasirinkimas;
@@ -101,9 +103,9 @@ double sortass(Container &studentai) {
     } catch (const exception &e) {
         cout << "Klaida: " << e.what() << endl;
     }
-    auto end = chrono::high_resolution_clock::now();
+    // auto end = chrono::high_resolution_clock::now();
     cout << "sortas- baigta\n";
-    return std::chrono::duration<double>(end - start).count();
+    // return std::chrono::duration<double>(end - start).count();
 }
 
 template<typename Container>
@@ -256,24 +258,29 @@ void meniu(vector<duomenys> &studentai) {
                         auto nuskaitymas_pradzia = chrono::high_resolution_clock::now();
                         readas(umap[pasirinkimas1] + ".txt", studentai);
                         auto nuskaitymas_pabaiga = chrono::high_resolution_clock::now();
-
+                        ////////////////////////////////////////////////////////////////////////////////////
                         auto dalinimo_pradzia = chrono::high_resolution_clock::now();
-                        dalina(studentai,blogis);
+                        sorto_laikas=dalina(studentai,blogis);
                         auto dalinimo_pabaiga = chrono::high_resolution_clock::now();
+                        ////////////////////////////////////////////////////////////////////////////////////
                         cout << "Pazangus studentai: \n";
-                        sorto_laikas += sortass(studentai);
+                        sortass(studentai);
                         cout << "Nepazangus studentai: \n";
-                        sorto_laikas += sortass(blogis);
+                        sortass(blogis);
 
                         write_to_file(umap[pasirinkimas1] + "_stud_rez.txt", studentai);
                         write_to_file(umap[pasirinkimas1] + "_blogi_rez.txt", blogis);
 
-                        cout << "\n Nuskaitymo laikas: " << std::chrono::duration<double>(
-                            nuskaitymas_pabaiga - nuskaitymas_pradzia).count() << "s" << endl;
-                        cout << "\n dalijimo laikas: " << std::chrono::duration<double>(
-                            dalinimo_pabaiga - dalinimo_pradzia).count() << "s" << endl;
+                        cout  << std::chrono::duration<double>(
+                            nuskaitymas_pabaiga - nuskaitymas_pradzia).count() << endl;
+                        cout  << sorto_laikas  << endl;
+                        //<< "\n Nuskaitymo laikas: " << "s"
+                        //<< "\n rusiavimo laikas: " << "s"
+
                         ////////////////////////////////////////////////////////////////////////////////
-                        cout << "\n rusiavimo laikas: " << sorto_laikas << "s" << endl;
+                        cout   << std::chrono::duration<double>(
+                            dalinimo_pabaiga - dalinimo_pradzia).count()  << endl;
+                        //<<"\n dalijimo laikas: ",<< "s"
                         cout << "\n viso laikas: " << std::chrono::duration<double>(
                             nuskaitymas_pabaiga - nuskaitymas_pradzia).count() +
                                 std::chrono::duration<double>(dalinimo_pabaiga - dalinimo_pradzia).count() +
@@ -543,13 +550,12 @@ void generuoti_vard(vector<duomenys> &studentai, int paz_sk1, int mok_sk) {
     }
 }
 
-double sortas(vector<duomenys> &studentai) {
+void sortas(vector<duomenys> &studentai) {
     cout << "Pasirinkite pagal ka norite rusiuoti studentus: \n"
             << "1. Pagal varda \n"
             << "2. Pagal pavarde \n"
             << "3. Pagal galutini bala (vidurkis) \n"
             << "4. Pagal galutini bala (mediana) \n";
-    auto start = std::chrono::high_resolution_clock::now();
     try {
         int pasirinkimas;
         cin >> pasirinkimas;
@@ -582,8 +588,6 @@ double sortas(vector<duomenys> &studentai) {
     } catch (const std::exception &e) {
         cout << "Klaida: " << e.what() << endl;
     }
-    auto end = std::chrono::high_resolution_clock::now();
-    return chrono::duration<double>(end - start).count();
 }
 
 // void dalina(vector<duomenys> &studentai) {
