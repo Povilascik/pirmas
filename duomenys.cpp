@@ -11,13 +11,13 @@ vector<duomenys> blogis;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 template<typename Container>
-void readas(const std::string &filename, Container &studentai) {
+void readas(const string &filename, Container &studentai) {
     ifstream in(filename);
     string line;
     getline(in, line); // Skip header
     studentai.reserve(10000000);
     while (getline(in, line)) {
-        std::stringstream iss(line);
+        stringstream iss(line);
         duomenys student;
         iss >> student.vardas >> student.pavarde;
         int paz;
@@ -41,16 +41,16 @@ void readas(const std::string &filename, Container &studentai) {
 
 template<typename Container>
 double dalina(Container &studentai, Container &blogis) {
-    auto start = std::chrono::high_resolution_clock::now();
-    std::stable_sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
+    auto start = chrono::high_resolution_clock::now();
+    stable_sort(studentai.begin(), studentai.end(), [](const duomenys &a, const duomenys &b) {
         return a.vid < b.vid;
     });
-    auto end = std::chrono::high_resolution_clock::now();
-    auto it = std::find_if(studentai.begin(), studentai.end(), [](const duomenys &student) {
+    auto end = chrono::high_resolution_clock::now();
+    auto it = find_if(studentai.begin(), studentai.end(), [](const duomenys &student) {
         return student.vid >= 5;
     });
 
-    blogis.insert(blogis.end(), std::make_move_iterator(studentai.begin()), std::make_move_iterator(it));
+    blogis.insert(blogis.end(), make_move_iterator(studentai.begin()), make_move_iterator(it));
     studentai.erase(studentai.begin(), it);
     cout << "dalina - baigta\n";
     return chrono::duration<double>(end - start).count();
@@ -58,16 +58,16 @@ double dalina(Container &studentai, Container &blogis) {
 
 template<typename Container>
 void sortass(Container &studentai) {
-    std::cout << "Pasirinkite pagal ka norite rusiuoti studentus: \n"
+    cout << "Pasirinkite pagal ka norite rusiuoti studentus: \n"
             << "1. Pagal varda \n"
             << "2. Pagal pavarde \n"
             << "3. Pagal galutini bala (vidurkis) \n"
             << "4. Pagal galutini bala (mediana) \n";
-    // auto start = std::chrono::high_resolution_clock::now();
+    // auto start = chrono::high_resolution_clock::now();
     try {
         int pasirinkimas;
-        std::cin >> pasirinkimas;
-        if (std::cin.fail() or pasirinkimas < 1 or pasirinkimas > 4) {
+        cin >> pasirinkimas;
+        if (cin.fail() or pasirinkimas < 1 or pasirinkimas > 4) {
             throw invalid_argument("Neteisingas ivestis.");
         }
 
@@ -98,12 +98,12 @@ void sortass(Container &studentai) {
     }
     // auto end = chrono::high_resolution_clock::now();
     cout << "sortas- baigta\n";
-    // return std::chrono::duration<double>(end - start).count();
+    // return chrono::duration<double>(end - start).count();
 }
 
 template<typename Container>
-void write_to_file(const std::string &filename, const Container &studentai) {
-    std::ofstream out(filename);
+void write_to_file(const string &filename, const Container &studentai) {
+    ofstream out(filename);
     out << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left <<
             "Galutinis (Vid.) / Galutinis (Med.)" << endl;
     out << "------------------------------------------------------------" << endl;
@@ -128,7 +128,7 @@ void meniu(vector<duomenys> &studentai) {
                 << "norint baigti darba, iveskite 6.";
         cin >> a;
         if (cin.fail() or a < 1 or a > 6) {
-            throw std::invalid_argument("Neteisingas ivestis.");
+            throw invalid_argument("Neteisingas ivestis.");
         }
         string path;
         switch (a) {
@@ -152,7 +152,7 @@ void meniu(vector<duomenys> &studentai) {
                         << "3. studentai1000000.txt \n";
                 cin >> pasirinkimas;
                 if (cin.fail() or pasirinkimas < 1 or pasirinkimas > 3) {
-                    throw std::invalid_argument("Neteisingas ivestis.");
+                    throw invalid_argument("Neteisingas ivestis.");
                 }
                 try {
                     switch (pasirinkimas) {
@@ -169,7 +169,7 @@ void meniu(vector<duomenys> &studentai) {
                             cout << "Neteisingas pasirinkimas." << endl;
                             break;
                     }
-                } catch (const std::exception &e) {
+                } catch (const exception &e) {
                 }
                 if (studentai.empty()) {
                     cout << "Nepavyko nuskaityti failo." << endl;
@@ -200,9 +200,9 @@ void meniu(vector<duomenys> &studentai) {
                         cout<<"Iveskite pazymiu skaiciu: ";
                         cin>>paz_sk;
                         if (cin.fail() or paz_sk < 2) {
-                            throw std::invalid_argument("Neteisingas ivestis.");
+                            throw invalid_argument("Neteisingas ivestis.");
                         }
-                        auto start = std::chrono::high_resolution_clock::now();
+                        auto start = chrono::high_resolution_clock::now();
                         make_file(studentai, test_file_location+"/tyrimas_studentai1000.txt", 1000, paz_sk);
                         make_file(studentai, test_file_location+"/tyrimas_studentai10000.txt", 10000,
                                   paz_sk);
@@ -212,8 +212,8 @@ void meniu(vector<duomenys> &studentai) {
                                   1000000, paz_sk);
                         make_file(studentai, test_file_location+"/tyrimas_studentai10000000.txt",
                                   10000000, paz_sk);
-                        auto end = std::chrono::high_resolution_clock::now();
-                        std::chrono::duration<double> duration = end - start;
+                        auto end = chrono::high_resolution_clock::now();
+                        chrono::duration<double> duration = end - start;
                         cout << "laikas, kuri uztruko sugeneruoti visus duomenis: " << duration.count() << " seconds."
                                 << endl;
                         break;
@@ -221,21 +221,21 @@ void meniu(vector<duomenys> &studentai) {
                     case 2: {
                         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         double sorto_laikas;
-                        std::cout << "Pasirinkite konteinerio tipa: \n"
+                        cout << "Pasirinkite konteinerio tipa: \n"
                                 << "1. std::vector \n"
                                 << "2. std::list \n"
                                 << "3. std::deque \n";
                         int pasirinkimas;
-                        std::cin >> pasirinkimas;
-                        if (std::cin.fail() or pasirinkimas < 1 or pasirinkimas > 3) {
-                            throw std::invalid_argument("Neteisinga ivestis.");
+                        cin >> pasirinkimas;
+                        if (cin.fail() or pasirinkimas < 1 or pasirinkimas > 3) {
+                            throw invalid_argument("Neteisinga ivestis.");
                             break;
                         }
                         using ContainerType = vector<duomenys>;
                         if (pasirinkimas == 1) using ContainerType = std::vector<duomenys>;
                         else if (pasirinkimas == 2) using ContainerType = std::list<duomenys>;
                         else if (pasirinkimas == 3) using ContainerType = std::deque<duomenys>;
-                        else std::cout << "Neteisingas pasirinkimas." << std::endl;
+                        else cout << "Neteisingas pasirinkimas." << endl;
                         ContainerType studentai;
                         ContainerType blogis;
                         cout << "Pasirinkite kuri faila norite nuskaityti: \n"
@@ -246,10 +246,10 @@ void meniu(vector<duomenys> &studentai) {
                                 << "5. studentai10000000.txt \n";
                         cin >> pasirinkimas1;
                         if (cin.fail() or pasirinkimas1 < 1 or pasirinkimas1 > 5) {
-                            throw std::invalid_argument("Neteisingas ivestis.");
+                            throw invalid_argument("Neteisingas ivestis.");
                         }
                         if (pasirinkimas1 > 5 or pasirinkimas1 < 1) {
-                            throw std::invalid_argument("Neteisingas ivestis.");
+                            throw invalid_argument("Neteisingas ivestis.");
                         }
                         auto nuskaitymas_pradzia = chrono::high_resolution_clock::now();
                         readas(umap[pasirinkimas1] + ".txt", studentai);
@@ -267,13 +267,13 @@ void meniu(vector<duomenys> &studentai) {
                         write_to_file(umap[pasirinkimas1] + "_stud_rez.txt", studentai);
                         write_to_file(umap[pasirinkimas1] + "_blogi_rez.txt", blogis);
 
-                        cout << "\n Nuskaitymo laikas: " << std::chrono::duration<double>(
+                        cout << "\n Nuskaitymo laikas: " << chrono::duration<double>(
                             nuskaitymas_pabaiga - nuskaitymas_pradzia).count() << "s" << endl;
                         cout << "\n rusiavimo laikas: "  << sorto_laikas << "s" << endl;
-                        cout << "\n dalinimo laikas: " << std::chrono::duration<double>(
+                        cout << "\n dalinimo laikas: " << chrono::duration<double>(
                             dalinimo_pabaiga - dalinimo_pradzia).count() << "s" << endl;
-                        cout << "\n Is viso laiko: " << std::chrono::duration<double>(
-                            nuskaitymas_pabaiga - nuskaitymas_pradzia).count() + sorto_laikas + std::chrono::duration<double>(
+                        cout << "\n Is viso laiko: " << chrono::duration<double>(
+                            nuskaitymas_pabaiga - nuskaitymas_pradzia).count() + sorto_laikas + chrono::duration<double>(
                             dalinimo_pabaiga - dalinimo_pradzia).count() << "s" << endl;
                         break;
                     }
@@ -290,7 +290,7 @@ void meniu(vector<duomenys> &studentai) {
                 cout << "Neteisingas pasirinkimas." << endl;
                 break;
         }
-    } catch (const std::exception &e) {
+    } catch (const exception &e) {
         cout << "Klaida: " << e.what() << endl;
     }
 }
@@ -307,8 +307,8 @@ void galutinis_vid(vector<int> nd, int egz, vector<duomenys> &studentai) {
 
         student.vid = 0.4 * vid + 0.6 * egz;
         studentai.push_back(student);
-    } catch (const std::exception &e) {
-        std::cerr << "Error calculating average: " << e.what() << std::endl;
+    } catch (const exception &e) {
+        cerr << "Error calculating average: " << e.what() << endl;
     }
 }
 
@@ -321,7 +321,7 @@ double galutinis_vid(vector<int> nd, int egz) {
         }
         vid /= nd.size();
     } catch (const std::exception &e) {
-        std::cerr << "Error calculating average: " << e.what() << std::endl;
+        cerr << "Error calculating average: " << e.what() << endl;
     }
     return 0.4 * vid + 0.6 * egz;
 }
@@ -329,7 +329,7 @@ double galutinis_vid(vector<int> nd, int egz) {
 void galutinis_med(vector<int> nd, int egz, vector<duomenys> &studentai) {
     // skaiciuoja galutini bala pagal mediana
     duomenys student;
-    std::sort(nd.begin(), nd.end());
+    sort(nd.begin(), nd.end());
     double med;
     if (nd.size() == 0) {
         med = 0;
@@ -344,7 +344,7 @@ void galutinis_med(vector<int> nd, int egz, vector<duomenys> &studentai) {
 
 double galutinis_med(vector<int> nd, int egz) {
     // skaiciuoja galutini bala pagal mediana
-    std::sort(nd.begin(), nd.end());
+    sort(nd.begin(), nd.end());
     double med;
     if (nd.size() == 0) {
         med = 0;
@@ -362,7 +362,7 @@ void read(const string &filename, vector<duomenys> &studentai) {
     getline(in, line);
     while (getline(in, line)) {
         //ciklas veikia tol, kol nuskaito visa faila
-        std::stringstream iss(line); //iss - string stream, skirtas nuskaityti duomenims is failo
+        stringstream iss(line); //iss - string stream, skirtas nuskaityti duomenims is failo
         duomenys student;
         iss >> student.vardas >> student.pavarde;
         int paz;
@@ -384,7 +384,7 @@ void read(const string &filename, vector<duomenys> &studentai) {
 
 void ss_write(const string &filename, vector<duomenys> &studentai) {
     ofstream out(filename);
-    std::stringstream ss;
+    stringstream ss;
     ss << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << left <<
             "Galutinis (Vid.) / Galutinis (Med.)" << endl;
     ss << "------------------------------------------------------------" << endl;
@@ -411,10 +411,10 @@ void write(vector<duomenys> &studentai) {
     }
 }
 
-void write_file(const string &filename, std::vector<duomenys> &studentai, int nd_skaicius) {
-    std::ofstream out(filename);
+void write_file(const string &filename, vector<duomenys> &studentai, int nd_skaicius) {
+    ofstream out(filename);
     if (!out) {
-        throw std::runtime_error("negalima atidaryti failo: " + filename);
+        throw runtime_error("negalima atidaryti failo: " + filename);
     }
     stringstream ss;
     ss << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde";
@@ -423,7 +423,7 @@ void write_file(const string &filename, std::vector<duomenys> &studentai, int nd
     }
     ss << setw(20) << left << "EGZAMINAS" << endl;
     while (!studentai.empty()) {
-        // int lines_to_write = std::min(1000, static_cast<int>(studentai.size()));
+        // int lines_to_write = min(1000, static_cast<int>(studentai.size()));
         for (auto i: studentai) {
             ss << setw(20) << left << i.vardas
                     << setw(20) << left << i.pavarde;
@@ -468,12 +468,12 @@ void generuoti_paz_ranka(vector<duomenys> &studentai) {
             cout << "Iveskite studento pavarde: ";
             cin >> student.pavarde;
             if (cin.fail()) {
-                throw std::invalid_argument("Neteisingas ivestis.");
+                throw invalid_argument("Neteisingas ivestis.");
             }
             int paz_sk = rand() % 10 + 1; // sugeneruoja atsitiktini pazymiu skaiciu
             generuoti_paz(student, paz_sk); // generuoja pazymius
             studentai.push_back(student); // ideda studento duomenis i bendra vektoriu
-        } catch (const std::exception &e) {
+        } catch (const exception &e) {
             cout << "Klaida: " << e.what() << endl;
             cin.clear();
         }
@@ -508,7 +508,7 @@ void sortas(vector<duomenys> &studentai) {
         int pasirinkimas;
         cin >> pasirinkimas;
         if (cin.fail() or pasirinkimas < 1 or pasirinkimas > 4) {
-            throw std::invalid_argument("Neteisingas ivestis.");
+            throw invalid_argument("Neteisingas ivestis.");
         }
 
         switch (pasirinkimas) {
@@ -533,7 +533,7 @@ void sortas(vector<duomenys> &studentai) {
                 });
                 break;
         }
-    } catch (const std::exception &e) {
+    } catch (const exception &e) {
         cout << "Klaida: " << e.what() << endl;
     }
 }
