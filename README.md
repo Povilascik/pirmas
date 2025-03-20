@@ -2,7 +2,8 @@
 
 1. Atsisiųskite programos versiją iš Releases.
 2. Išarchyvuokite failus.
-3. 
+3. Atsidaryti aplankala
+4. 
 
 # V.04 užduotis {
 
