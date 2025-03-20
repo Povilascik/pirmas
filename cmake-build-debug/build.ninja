@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: pirmas
-# Configurations: Debug
+# Configurations: Release
 # =============================================================================
 
 #############################################
@@ -24,7 +24,7 @@ ninja_required_version = 1.5
 #############################################
 # Set configuration variable for custom commands.
 
-CONFIGURATION = Debug
+CONFIGURATION = Release
 # =============================================================================
 # Include auxiliary files.
 
@@ -49,9 +49,9 @@ cmake_ninja_workdir = C$:/Users/PC/Documents/GitHub/pirmas/cmake-build-debug/
 
 build cmake_object_order_depends_target_saugojimas_masyve: phony || .
 
-build CMakeFiles/saugojimas_masyve.dir/saugojimas_masyve.cpp.obj: CXX_COMPILER__saugojimas_masyve_unscanned_Debug C$:/Users/PC/Documents/GitHub/pirmas/saugojimas_masyve.cpp || cmake_object_order_depends_target_saugojimas_masyve
+build CMakeFiles/saugojimas_masyve.dir/saugojimas_masyve.cpp.obj: CXX_COMPILER__saugojimas_masyve_unscanned_Release C$:/Users/PC/Documents/GitHub/pirmas/saugojimas_masyve.cpp || cmake_object_order_depends_target_saugojimas_masyve
   DEP_FILE = CMakeFiles\saugojimas_masyve.dir\saugojimas_masyve.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  FLAGS = -O3 -DNDEBUG -O3 -std=gnu++14 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\saugojimas_masyve.dir
   OBJECT_FILE_DIR = CMakeFiles\saugojimas_masyve.dir
 
@@ -63,8 +63,8 @@ build CMakeFiles/saugojimas_masyve.dir/saugojimas_masyve.cpp.obj: CXX_COMPILER__
 #############################################
 # Link the executable saugojimas_masyve.exe
 
-build saugojimas_masyve.exe: CXX_EXECUTABLE_LINKER__saugojimas_masyve_Debug CMakeFiles/saugojimas_masyve.dir/saugojimas_masyve.cpp.obj
-  FLAGS = -g
+build saugojimas_masyve.exe: CXX_EXECUTABLE_LINKER__saugojimas_masyve_Release CMakeFiles/saugojimas_masyve.dir/saugojimas_masyve.cpp.obj
+  FLAGS = -O3 -DNDEBUG -O3
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\saugojimas_masyve.dir
   POST_BUILD = cd .
@@ -82,17 +82,17 @@ build saugojimas_masyve.exe: CXX_EXECUTABLE_LINKER__saugojimas_masyve_Debug CMak
 
 build cmake_object_order_depends_target_programa: phony || .
 
-build CMakeFiles/programa.dir/pirma_uzd.cpp.obj: CXX_COMPILER__programa_unscanned_Debug C$:/Users/PC/Documents/GitHub/pirmas/pirma_uzd.cpp || cmake_object_order_depends_target_programa
-  DEFINES = -DTEST_FILE_LOCATION=\"C:/Users/PC/Documents/GitHub/pirmas\"
+build CMakeFiles/programa.dir/pirma_uzd.cpp.obj: CXX_COMPILER__programa_unscanned_Release C$:/Users/PC/Documents/GitHub/pirmas/pirma_uzd.cpp || cmake_object_order_depends_target_programa
+  DEFINES = -DTEST_FILE_LOCATION=\"C:/Users/PC/Documents/GitHub/pirmas/\"
   DEP_FILE = CMakeFiles\programa.dir\pirma_uzd.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  FLAGS = -O3 -DNDEBUG -O3 -std=gnu++14 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\programa.dir
   OBJECT_FILE_DIR = CMakeFiles\programa.dir
 
-build CMakeFiles/programa.dir/duomenys.cpp.obj: CXX_COMPILER__programa_unscanned_Debug C$:/Users/PC/Documents/GitHub/pirmas/duomenys.cpp || cmake_object_order_depends_target_programa
-  DEFINES = -DTEST_FILE_LOCATION=\"C:/Users/PC/Documents/GitHub/pirmas\"
+build CMakeFiles/programa.dir/duomenys.cpp.obj: CXX_COMPILER__programa_unscanned_Release C$:/Users/PC/Documents/GitHub/pirmas/duomenys.cpp || cmake_object_order_depends_target_programa
+  DEFINES = -DTEST_FILE_LOCATION=\"C:/Users/PC/Documents/GitHub/pirmas/\"
   DEP_FILE = CMakeFiles\programa.dir\duomenys.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  FLAGS = -O3 -DNDEBUG -O3 -std=gnu++14 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\programa.dir
   OBJECT_FILE_DIR = CMakeFiles\programa.dir
 
@@ -104,8 +104,8 @@ build CMakeFiles/programa.dir/duomenys.cpp.obj: CXX_COMPILER__programa_unscanned
 #############################################
 # Link the executable programa.exe
 
-build programa.exe: CXX_EXECUTABLE_LINKER__programa_Debug CMakeFiles/programa.dir/pirma_uzd.cpp.obj CMakeFiles/programa.dir/duomenys.cpp.obj
-  FLAGS = -g
+build programa.exe: CXX_EXECUTABLE_LINKER__programa_Release CMakeFiles/programa.dir/pirma_uzd.cpp.obj CMakeFiles/programa.dir/duomenys.cpp.obj
+  FLAGS = -O3 -DNDEBUG -O3
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\programa.dir
   POST_BUILD = cd .

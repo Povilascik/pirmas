@@ -11,5 +11,15 @@ add_executable(programa
         duomenys.cpp
         duomenys.h
         )
-set(TEST_FILE_LOCATION "${CMAKE_SOURCE_DIR}")
+# Set Release build type with optimizations
+set(CMAKE_BUILD_TYPE Release)
+
+# Add compiler-specific optimization flags
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+elseif(MSVC)
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
+endif()
+
+set(TEST_FILE_LOCATION "${CMAKE_SOURCE_DIR}/")
 target_compile_definitions(programa PRIVATE TEST_FILE_LOCATION="${TEST_FILE_LOCATION}")

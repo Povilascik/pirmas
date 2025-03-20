@@ -2,11 +2,7 @@
 
 1. Atsisiųskite programos versiją iš Releases.
 2. Išarchyvuokite failus.
-3. Atsidarykite terminalą ir nueikite į programos aplanką.
-4.1 Norint pasileisti programą per terminalą - užkomentuokite pirmą "duomenys.h" eilutę ir atkomentuokite antrą "duomenys.cpp".
-4.1.2 Norint sukompiliuoti programą per terminalą, įveskite komandą `g++ -O3 -o programa pirma_uzd.cpp`.
-4.1.3 Norint paleisti programą, per terminalą įveskite komandą `./programa`.
-4.2 Norint pasileisti programą per jūsų pasirinktą editorių - užkomentuokite antrą "duomenys.cpp" eilutę ir atkomentuokite pirmą "duomenys.h".
+3. 
 
 # V.04 užduotis {
 

@@ -1,10 +1,6 @@
 #include "duomenys.h"
 #include "saugojimas_masyve.h"
 
-// #ifndef TEST_FILE_LOCATION
-//     #define TEST_FILE_LOCATION "C:/Users/PC/Documents/GitHub/pirmas"
-// #endif
-
 std::unordered_map<int, string> umap;
 
 vector<duomenys> blogis;
@@ -157,13 +153,13 @@ void meniu(vector<duomenys> &studentai) {
                 try {
                     switch (pasirinkimas) {
                         case 1:
-                            read(test_file_location+"/studentai10000.txt", studentai);
+                            read(test_file_location+"studentai10000.txt", studentai);
                             break;
                         case 2:
-                            read(test_file_location+"/studentai100000.txt", studentai);
+                            read(test_file_location+"studentai100000.txt", studentai);
                             break;
                         case 3:
-                            read(test_file_location+"/studentai1000000.txt", studentai);
+                            read(test_file_location+"studentai1000000.txt", studentai);
                             break;
                         default:
                             cout << "Neteisingas pasirinkimas." << endl;
@@ -175,16 +171,16 @@ void meniu(vector<duomenys> &studentai) {
                     cout << "Nepavyko nuskaityti failo." << endl;
                 } else {
                     sortas(studentai);
-                    ss_write(test_file_location+"/kursiokai.txt", studentai);
+                    ss_write(test_file_location+"kursiokai.txt", studentai);
                 }
                 break;
             }
             case 5: {
-                umap[1] = test_file_location+"/tyrimas_studentai1000";
-                umap[2] = test_file_location+"/tyrimas_studentai10000";
-                umap[3] = test_file_location+"/tyrimas_studentai100000";
-                umap[4] = test_file_location+"/tyrimas_studentai1000000";
-                umap[5] = test_file_location+"/tyrimas_studentai10000000";
+                umap[1] = test_file_location+"tyrimas_studentai1000";
+                umap[2] = test_file_location+"tyrimas_studentai10000";
+                umap[3] = test_file_location+"tyrimas_studentai100000";
+                umap[4] = test_file_location+"tyrimas_studentai1000000";
+                umap[5] = test_file_location+"tyrimas_studentai10000000";
                 int pasirinkimas1;
                 cout << "1. sugeneruoti failus." << endl
                         << "2. tirti failus" << endl;
@@ -203,14 +199,14 @@ void meniu(vector<duomenys> &studentai) {
                             throw invalid_argument("Neteisingas ivestis.");
                         }
                         auto start = chrono::high_resolution_clock::now();
-                        make_file(studentai, test_file_location+"/tyrimas_studentai1000.txt", 1000, paz_sk);
-                        make_file(studentai, test_file_location+"/tyrimas_studentai10000.txt", 10000,
+                        make_file(studentai, test_file_location+"tyrimas_studentai1000.txt", 1000, paz_sk);
+                        make_file(studentai, test_file_location+"tyrimas_studentai10000.txt", 10000,
                                   paz_sk);
-                        make_file(studentai, test_file_location+"/tyrimas_studentai100000.txt", 100000,
+                        make_file(studentai, test_file_location+"tyrimas_studentai100000.txt", 100000,
                                   paz_sk);
-                        make_file(studentai, test_file_location+"/tyrimas_studentai1000000.txt",
+                        make_file(studentai, test_file_location+"tyrimas_studentai1000000.txt",
                                   1000000, paz_sk);
-                        make_file(studentai, test_file_location+"/tyrimas_studentai10000000.txt",
+                        make_file(studentai, test_file_location+"tyrimas_studentai10000000.txt",
                                   10000000, paz_sk);
                         auto end = chrono::high_resolution_clock::now();
                         chrono::duration<double> duration = end - start;

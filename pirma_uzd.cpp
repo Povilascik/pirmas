@@ -1,5 +1,5 @@
-#include "duomenys.h"
-// #include "duomenys.cpp"
+#include "duomenys.h"               // skirtas atsidarant per editoriu
+// #include "duomenys.cpp"          // skirtas atsidarant per terminala
 
 vector<duomenys> studentai;
 
