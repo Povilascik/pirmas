@@ -74,43 +74,45 @@ build saugojimas_masyve.exe: CXX_EXECUTABLE_LINKER__saugojimas_masyve_Debug CMak
   TARGET_PDB = saugojimas_masyve.exe.dbg
 
 # =============================================================================
-# Object build statements for EXECUTABLE target pirmas
+# Object build statements for EXECUTABLE target programa
 
 
 #############################################
-# Order-only phony target for pirmas
+# Order-only phony target for programa
 
-build cmake_object_order_depends_target_pirmas: phony || .
+build cmake_object_order_depends_target_programa: phony || .
 
-build CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj: CXX_COMPILER__pirmas_unscanned_Debug C$:/Users/PC/Documents/GitHub/pirmas/pirma_uzd.cpp || cmake_object_order_depends_target_pirmas
-  DEP_FILE = CMakeFiles\pirmas.dir\pirma_uzd.cpp.obj.d
+build CMakeFiles/programa.dir/pirma_uzd.cpp.obj: CXX_COMPILER__programa_unscanned_Debug C$:/Users/PC/Documents/GitHub/pirmas/pirma_uzd.cpp || cmake_object_order_depends_target_programa
+  DEFINES = -DTEST_FILE_LOCATION=\"C:/Users/PC/Documents/GitHub/pirmas\"
+  DEP_FILE = CMakeFiles\programa.dir\pirma_uzd.cpp.obj.d
   FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\pirmas.dir
-  OBJECT_FILE_DIR = CMakeFiles\pirmas.dir
+  OBJECT_DIR = CMakeFiles\programa.dir
+  OBJECT_FILE_DIR = CMakeFiles\programa.dir
 
-build CMakeFiles/pirmas.dir/duomenys.cpp.obj: CXX_COMPILER__pirmas_unscanned_Debug C$:/Users/PC/Documents/GitHub/pirmas/duomenys.cpp || cmake_object_order_depends_target_pirmas
-  DEP_FILE = CMakeFiles\pirmas.dir\duomenys.cpp.obj.d
+build CMakeFiles/programa.dir/duomenys.cpp.obj: CXX_COMPILER__programa_unscanned_Debug C$:/Users/PC/Documents/GitHub/pirmas/duomenys.cpp || cmake_object_order_depends_target_programa
+  DEFINES = -DTEST_FILE_LOCATION=\"C:/Users/PC/Documents/GitHub/pirmas\"
+  DEP_FILE = CMakeFiles\programa.dir\duomenys.cpp.obj.d
   FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\pirmas.dir
-  OBJECT_FILE_DIR = CMakeFiles\pirmas.dir
+  OBJECT_DIR = CMakeFiles\programa.dir
+  OBJECT_FILE_DIR = CMakeFiles\programa.dir
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target pirmas
+# Link build statements for EXECUTABLE target programa
 
 
 #############################################
-# Link the executable pirmas.exe
+# Link the executable programa.exe
 
-build pirmas.exe: CXX_EXECUTABLE_LINKER__pirmas_Debug CMakeFiles/pirmas.dir/pirma_uzd.cpp.obj CMakeFiles/pirmas.dir/duomenys.cpp.obj
+build programa.exe: CXX_EXECUTABLE_LINKER__programa_Debug CMakeFiles/programa.dir/pirma_uzd.cpp.obj CMakeFiles/programa.dir/duomenys.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\pirmas.dir
+  OBJECT_DIR = CMakeFiles\programa.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = pirmas.exe
-  TARGET_IMPLIB = libpirmas.dll.a
-  TARGET_PDB = pirmas.exe.dbg
+  TARGET_FILE = programa.exe
+  TARGET_IMPLIB = libprograma.dll.a
+  TARGET_PDB = programa.exe.dbg
 
 
 #############################################
@@ -138,7 +140,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
-build pirmas: phony pirmas.exe
+build programa: phony programa.exe
 
 build saugojimas_masyve: phony saugojimas_masyve.exe
 
@@ -150,7 +152,7 @@ build saugojimas_masyve: phony saugojimas_masyve.exe
 #############################################
 # Folder: C:/Users/PC/Documents/GitHub/pirmas/cmake-build-debug
 
-build all: phony saugojimas_masyve.exe pirmas.exe
+build all: phony saugojimas_masyve.exe programa.exe
 
 # =============================================================================
 # Built-in targets

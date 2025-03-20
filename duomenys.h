@@ -8,6 +8,15 @@
 #include <random>
 #include <ctime>
 #include <unordered_map>
+#include <chrono>
+#include <list>
+#include <deque>
+#include <fstream>
+#include <cwchar>
+
+//const char* test_file_location = TEST_FILE_LOCATION;
+
+const std::string test_file_location = TEST_FILE_LOCATION;
 
 struct blogi;
 using std::cout;
