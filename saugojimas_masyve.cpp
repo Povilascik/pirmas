@@ -4,6 +4,6 @@ using namespace std;
 
 int main () {
     ivedimas();
-    write1("C:/Users/PC/Documents/GitHub/pirmas/rez.txt");
+    write1();
     return 0;
 }

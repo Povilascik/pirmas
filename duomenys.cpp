@@ -63,7 +63,7 @@ void sortass(Container &studentai) {
     try {
         int pasirinkimas;
         cin >> pasirinkimas;
-        if (cin.fail() or pasirinkimas < 1 or pasirinkimas > 4) {
+        if (cin.fail() || pasirinkimas < 1 || pasirinkimas > 4) {
             throw invalid_argument("Neteisingas ivestis.");
         }
 
@@ -123,7 +123,7 @@ void meniu(vector<duomenys> &studentai) {
                 << "norint sugeneruoti arba atlikti tyrimus su duomenimis spauskite 5. \n"
                 << "norint baigti darba, iveskite 6.";
         cin >> a;
-        if (cin.fail() or a < 1 or a > 6) {
+        if (cin.fail() || a < 1 || a > 6) {
             throw invalid_argument("Neteisingas ivestis.");
         }
         string path;
@@ -147,7 +147,7 @@ void meniu(vector<duomenys> &studentai) {
                         << "2. studentai100000.txt \n"
                         << "3. studentai1000000.txt \n";
                 cin >> pasirinkimas;
-                if (cin.fail() or pasirinkimas < 1 or pasirinkimas > 3) {
+                if (cin.fail() || pasirinkimas < 1 || pasirinkimas > 3) {
                     throw invalid_argument("Neteisingas ivestis.");
                 }
                 try {
@@ -195,7 +195,7 @@ void meniu(vector<duomenys> &studentai) {
                         int paz_sk;
                         cout<<"Iveskite pazymiu skaiciu: ";
                         cin>>paz_sk;
-                        if (cin.fail() or paz_sk < 2) {
+                        if (cin.fail() || paz_sk < 2) {
                             throw invalid_argument("Neteisingas ivestis.");
                         }
                         auto start = chrono::high_resolution_clock::now();
@@ -223,7 +223,7 @@ void meniu(vector<duomenys> &studentai) {
                                 << "3. std::deque \n";
                         int pasirinkimas;
                         cin >> pasirinkimas;
-                        if (cin.fail() or pasirinkimas < 1 or pasirinkimas > 3) {
+                        if (cin.fail() || pasirinkimas < 1 || pasirinkimas > 3) {
                             throw invalid_argument("Neteisinga ivestis.");
                             break;
                         }
@@ -241,10 +241,10 @@ void meniu(vector<duomenys> &studentai) {
                                 << "4. studentai1000000.txt \n"
                                 << "5. studentai10000000.txt \n";
                         cin >> pasirinkimas1;
-                        if (cin.fail() or pasirinkimas1 < 1 or pasirinkimas1 > 5) {
+                        if (cin.fail() || pasirinkimas1 < 1 || pasirinkimas1 > 5) {
                             throw invalid_argument("Neteisingas ivestis.");
                         }
-                        if (pasirinkimas1 > 5 or pasirinkimas1 < 1) {
+                        if (pasirinkimas1 > 5 || pasirinkimas1 < 1) {
                             throw invalid_argument("Neteisingas ivestis.");
                         }
                         auto nuskaitymas_pradzia = chrono::high_resolution_clock::now();
@@ -363,7 +363,7 @@ void read(const string &filename, vector<duomenys> &studentai) {
         iss >> student.vardas >> student.pavarde;
         int paz;
         while (iss >> paz) {
-            if (paz >= 0 and paz <= 10) student.nd.push_back(paz);
+            if (paz >= 0 && paz <= 10) student.nd.push_back(paz);
             //tikrina ar pazymys yra tarp 0 ir 10, o jeigu ne - praleidzia.
         }
 
@@ -503,7 +503,7 @@ void sortas(vector<duomenys> &studentai) {
     try {
         int pasirinkimas;
         cin >> pasirinkimas;
-        if (cin.fail() or pasirinkimas < 1 or pasirinkimas > 4) {
+        if (cin.fail() || pasirinkimas < 1 || pasirinkimas > 4) {
             throw invalid_argument("Neteisingas ivestis.");
         }
 
