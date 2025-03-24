@@ -112,6 +112,16 @@ void write_to_file(const string &filename, const Container &studentai) {
     out.close();
 }
 
+template<typename Container>
+void split_into_two_containers(const Container& studentai, Container& vargsiukai, Container& kietiakai) {
+    for (const auto& student : studentai) {
+        if (student.vid < 5) vargsiukai.push_back(student);
+         else kietiakai.push_back(student);
+    }
+}
+
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void meniu(vector<duomenys> &studentai) {
     try {
@@ -216,7 +226,7 @@ void meniu(vector<duomenys> &studentai) {
                     }
                     case 2: {
                         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        double sorto_laikas;
+                        double sorto_laikas=0;
                         cout << "Pasirinkite konteinerio tipa: \n"
                                 << "1. std::vector \n"
                                 << "2. std::list \n"
@@ -234,6 +244,18 @@ void meniu(vector<duomenys> &studentai) {
                         else cout << "Neteisingas pasirinkimas." << endl;
                         ContainerType studentai;
                         ContainerType blogis;
+                        ContainerType kietiakai;
+                        cout << "pasirinkite, kuria strategija norite naudoti: \n"
+                                << "1 Strategija \n"
+                                << "2 Strategija \n"
+                                << "3 Strategija \n";
+                        int strategija;
+                        cin >> strategija;
+                        if (cin.fail() || strategija < 1 || strategija > 3) {
+                            throw invalid_argument("Neteisinga ivestis.");
+                            break;
+                        }
+
                         cout << "Pasirinkite kuri faila norite nuskaityti: \n"
                                 << "1. studentai1000.txt \n"
                                 << "2. studentai10000.txt \n"
@@ -252,20 +274,55 @@ void meniu(vector<duomenys> &studentai) {
                         auto nuskaitymas_pabaiga = chrono::high_resolution_clock::now();
                         ////////////////////////////////////////////////////////////////////////////////////
                         auto dalinimo_pradzia = chrono::high_resolution_clock::now();
-                        sorto_laikas=dalina(studentai,blogis);
+                        switch (strategija) {
+                            case 1:
+                                split_into_two_containers(studentai, blogis, kietiakai);
+                                break;
+
+                            case 2: {
+                                sorto_laikas=dalina(studentai,blogis);
+                                break;
+                            }
+                            case 3: {
+                                sorto_laikas=dalina(studentai,blogis);
+                                break;
+                            }
+                            default: {
+                                cout << "Neteisingas pasirinkimas." << endl;
+                                break;
+                            }
+                        }
+
+
                         auto dalinimo_pabaiga = chrono::high_resolution_clock::now();
+
                         ////////////////////////////////////////////////////////////////////////////////////
                         cout << "Pazangus studentai: \n";
                         sortass(studentai);
                         cout << "Nepazangus studentai: \n";
                         sortass(blogis);
-
-                        write_to_file(umap[pasirinkimas1] + "_stud_rez.txt", studentai);
-                        write_to_file(umap[pasirinkimas1] + "_blogi_rez.txt", blogis);
+                        switch (strategija) {
+                            case 1: {
+                                write_to_file(umap[pasirinkimas1] + "_stud_rez.txt", kietiakai);
+                                write_to_file(umap[pasirinkimas1] + "_blogi_rez.txt", blogis);
+                                break;
+                            }
+                            case 2:
+                                write_to_file(umap[pasirinkimas1] + "_stud_rez.txt", studentai);
+                                write_to_file(umap[pasirinkimas1] + "_blogi_rez.txt", blogis);
+                                break;
+                            case 3:
+                                write_to_file(umap[pasirinkimas1] + "_stud_rez.txt", studentai);
+                                write_to_file(umap[pasirinkimas1] + "_blogi_rez.txt", blogis);
+                                break;
+                            default:
+                                cout << "Neteisingas pasirinkimas." << endl;
+                                break;
+                        }
 
                         cout << "\n Nuskaitymo laikas: " << chrono::duration<double>(
                             nuskaitymas_pabaiga - nuskaitymas_pradzia).count() << "s" << endl;
-                        cout << "\n rusiavimo laikas: "  << sorto_laikas << "s" << endl;
+                        cout << "\n rusiavimo didejimo tvarka laikas: "  << sorto_laikas << "s" << endl;
                         cout << "\n dalinimo laikas: " << chrono::duration<double>(
                             dalinimo_pabaiga - dalinimo_pradzia).count() << "s" << endl;
                         cout << "\n Is viso laiko: " << chrono::duration<double>(
