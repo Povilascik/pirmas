@@ -298,7 +298,25 @@ void meniu(vector<duomenys> &studentai) {
 
                         ////////////////////////////////////////////////////////////////////////////////////
                         cout << "Pazangus studentai: \n";
-                        sortass(studentai);
+
+                        switch (strategija) {
+                            case 1: {
+                                sortass(kietiakai);
+                                break;
+                            }
+                            case 2: {
+                                sortass(studentai);
+                                break;
+                            }
+                            case 3: {
+                                sortass(studentai);
+                                break;
+                            }
+                            default:
+                                cout << "Neteisingas pasirinkimas." << endl;
+                                break;
+                        }
+
                         cout << "Nepazangus studentai: \n";
                         sortass(blogis);
                         switch (strategija) {

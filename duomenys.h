@@ -15,8 +15,8 @@
 #include <cwchar>
 #include <sstream>
 
-// const std::string test_file_location = TEST_FILE_LOCATION;      // skirtas naudoti SU CMake
-const std::string test_file_location = "";                   // skirtas naudoti BE CMake
+const std::string test_file_location = TEST_FILE_LOCATION;      // skirtas naudoti SU CMake
+// const std::string test_file_location = "";                   // skirtas naudoti BE CMake
 
 struct blogi;
 using std::cout;
